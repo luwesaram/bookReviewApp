@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\logOutIcon.png" />
+    <None Remove="assets\mainWindowImage.png" />
+    <None Remove="assets\searchIcon.png" />
+    <None Remove="assets\settingsIconBlack.png" />
+    <None Remove="assets\settingsIconWhite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="NuGet.Frameworks" Version="6.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\searchIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\logOutIcon.png" />
+    <Resource Include="assets\mainWindowImage.png" />
+    <Resource Include="assets\settingsIconBlack.png" />
+    <Resource Include="assets\settingsIconWhite.png" />
+  </ItemGroup>
+
+</Project>
