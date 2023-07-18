@@ -1,38 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System.Windows;
-using System.Security.Cryptography.X509Certificates;
 
 namespace bookReviewConsoleApplication
 {
     public class Connection
     {
         private MySqlConnection Conn;
-        private string Server;
-        private string User;
-        private string Password;
-        private string Db;
 
         public Connection()
         {
-
-        }
-
-        private void Initialize()
-        {
-            Server = "localhost";
-            Db = "";
-            User = "root";
-            Password = "";
-            string ConnectionString;
-            ConnectionString = "Data Source=" + Server +
-                               ";Database=" + Db +
-                               ";User Id=" + User +
-                               ";Password" + Password + ";SSL Mode=0";
+            string ConnectionString = "Data Source=localhost;Database=bookreview;User=root;Password=;SSL Mode =0";
             Conn = new MySqlConnection(ConnectionString);
         }
 
@@ -48,7 +25,7 @@ namespace bookReviewConsoleApplication
                 switch (e.Number)
                 {
                     case 0:
-                        MessageBox.Show("Error! Cannot connect to server:" + e);
+                        MessageBox.Show("Error! Cannot connect to server:" + e, "Error!");
                         break;
                     case 1045:
                         MessageBox.Show("Invalid username/password.");
@@ -57,6 +34,17 @@ namespace bookReviewConsoleApplication
                 return false;
             }
         }
+
+        /*public static bool CheckUserExists(string username, string email)
+        {
+            using (MySqlConnection conn = new ) 
+            {
+
+            }
+                if(Conn.OpenConnection()) {                    
+                    string sql = $"SELECT COUNT(*) FROM users WHERE username = '{username}' OR email = '{email}'";
+                }
+        }*/
 
         public void CloseConnection()
         {
