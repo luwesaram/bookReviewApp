@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -38,12 +39,29 @@ namespace bookReviewConsoleApplication
 
                 if (!UserExists(username, email))
                 {
-                    // creates a user
-
-                    MessageBox.Show("Creating User.", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    if(Conn.OpenConnection())
+                    {
+                        //checks if connection is established
+                        try
+                        {
+                            // creates a user
+                            string sql = "INSERT INTO user (Username, Email, Password) VALUES ('" + username + "','" + email + "','" + password + "')";
+                            MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
+                            object Result = Statement.ExecuteScalar();
+                            MessageBox.Show("Creating User.", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        
+                        catch (MySqlException Error)
+                        {
+                            // catches error
+                            MessageBox.Show("Error: " + Error, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
                 }
                 else
                 {
+                    // error when user already exists
                     MessageBox.Show("User already Exists", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
@@ -79,9 +97,9 @@ namespace bookReviewConsoleApplication
                     MessageBox.Show("Unable to connect to the database.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            catch (MySqlException ex)
+            catch (MySqlException error)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error: " + error.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return exists;
