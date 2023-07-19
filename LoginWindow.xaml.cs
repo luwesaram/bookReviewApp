@@ -19,47 +19,61 @@ namespace bookReviewConsoleApplication
             string username = txtBxUsername.Text;
             string password = txtBxPassword.Password;
 
-            //check if username input and pass is empty
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) 
             {
                 MessageBox.Show("Username/Password cannot be empty", "Error!");
             }
-            //proceed if not empty
-            else
+
+            try 
             {
-                //sql statement
-                string sql = "SELECT Username FROM user WHERE Username = '"+ username +"' AND Password = '"+ password +"'";
-                //check if connection is established
-                if(Conn.OpenConnection() == true)
+                if(!Conn.OpenConnection())
                 {
-                    try
-                    {
-                        MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
-                        object Result = Statement.ExecuteScalar();
-                        if (Result == null)
-                        {
-                            MessageBox.Show("Invalid username/password.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Successfully logged in.", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                    }
-                    catch (MySqlException Error)
-                    {
-                        MessageBox.Show("Error: " + Error, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBox.Show("Cannot connect to the database", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
+
+                if(isValidLogin(username, password))
+                {
+                    MessageBox.Show("Login Successfully", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // insert code to redirect to main
+                } 
+                else 
+                {
+                    MessageBox.Show("Login Error. Check your username and password and try again.", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            } 
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                Conn.CloseConnection();
+            }
+
             txtBxUsername.Text = "";
             txtBxPassword.Password = "";
-            Conn.CloseConnection();
         }
 
-        /* private bool isValidLogin(string username, string password) 
+        private bool isValidLogin(string username, string password) 
         {
+            object Result = null;
 
-        }*/
+            try
+            {
+                string sql = "SELECT Username FROM user WHERE Username = '"+ username +"' AND Password = '"+ password +"'";
+                MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
+                Result = Statement.ExecuteScalar();
+                
+                Conn.CloseConnection();
+            }
+            catch (MySqlException Error)
+            {
+                MessageBox.Show("Error: " + Error, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+                
+            return Result != null;
+        }
 
         private void lblForgotPassDoubleClick(object sender, MouseButtonEventArgs e)
         {
