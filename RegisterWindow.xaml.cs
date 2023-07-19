@@ -34,43 +34,15 @@ namespace bookReviewConsoleApplication
                 MessageBox.Show("Passwords do not match!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            else if(UserExists(username, email))
+            {
+                MessageBox.Show("User already Exists", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             else
             {
-
-                if (!UserExists(username, email))
-                {
-                    
-                    if(Conn.OpenConnection())
-                    {
-                        //checks if connection is established
-                        try
-                        {
-                            // creates a user
-                            string sql = "INSERT INTO user (Username, Email, Password) VALUES ('" + username + "','" + email + "','" + password + "')";
-                            MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
-                            object Result = Statement.ExecuteScalar();
-                            MessageBox.Show("Creating User.", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        
-                        catch (MySqlException Error)
-                        {
-                            // catches error
-                            MessageBox.Show("Error: " + Error, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-                else
-                {
-                    // error when user already exists
-                    MessageBox.Show("User already Exists", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                txtBoxUsername.Text = "";
-                txtBoxEmail.Text = "";
-                psBoxPass.Password = "";
-                psBoxConfirmPass.Password = "";
-                Conn.CloseConnection();
+                MessageBox.Show("Registered Successfully", "Registration Success", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         public bool UserExists(string username, string email)
@@ -89,7 +61,6 @@ namespace bookReviewConsoleApplication
                     int count = Convert.ToInt32(command.ExecuteScalar());
                     exists = count > 0;
 
-                    Conn.CloseConnection();
                 }
                 else
                 {
@@ -102,6 +73,7 @@ namespace bookReviewConsoleApplication
                 MessageBox.Show("Error: " + error.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            Conn.CloseConnection();
             return exists;
         }
 
