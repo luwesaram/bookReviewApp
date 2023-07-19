@@ -21,7 +21,7 @@ namespace bookReviewConsoleApplication
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) 
             {
-                MessageBox.Show("Username/Password cannot be empty", "Error!");
+                MessageBox.Show("Username/Password cannot be empty", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             try 
@@ -34,8 +34,12 @@ namespace bookReviewConsoleApplication
 
                 if(isValidLogin(username, password))
                 {
-                    MessageBox.Show("Login Successfully", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Login Successfully", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                     // insert code to redirect to main
+
+                    UserPage userPage = new UserPage();
+                    userPage.Show();
+                    this.Close();
                 } 
                 else 
                 {
@@ -64,7 +68,7 @@ namespace bookReviewConsoleApplication
                 string sql = "SELECT Username FROM user WHERE Username = '"+ username +"' AND Password = '"+ password +"'";
                 MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
                 Result = Statement.ExecuteScalar();
-                
+
                 Conn.CloseConnection();
             }
             catch (MySqlException Error)
