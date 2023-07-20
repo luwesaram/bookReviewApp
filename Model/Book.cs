@@ -1,11 +1,11 @@
-using bookReviewConsoleApplication.Entities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
-namespace bookReviewConsoleApplication.Entities
+namespace bookReviewConsoleApplication.Model
 {
     public class Book
     {
