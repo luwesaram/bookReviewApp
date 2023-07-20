@@ -16,5 +16,6 @@ namespace bookReviewConsoleApplication.Model
         public Genre Genre { get; set; }
         public ImageSource CoverImage { get; set; }
         public DateTime PublicationDate { get; set; }
+        public int PageCount { get; set; }
     }
 }
