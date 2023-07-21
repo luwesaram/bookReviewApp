@@ -6,9 +6,14 @@ namespace bookReviewConsoleApplication.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private readonly Connection connection;
+        private readonly BookManager bookManager;
         public MainViewModel() 
         {
+            connection = new Connection();
+            bookManager = new BookManager(connection);
 
+            LoadData();
         }
 
         private ObservableCollection<Book> books { get; set; }
@@ -16,7 +21,7 @@ namespace bookReviewConsoleApplication.ViewModel
             get { return books; } 
             set {
                 books = value;
-                onPropertyChanged(nameof(Books))
+                OnPropertyChanged(nameof(Books));
             } 
         }
 
@@ -25,11 +30,20 @@ namespace bookReviewConsoleApplication.ViewModel
         public ObservableCollection<Review> Reviews
         {
             get { return reviews; }
-            set { reviews = value; }
+            set { 
+                reviews = value;
+                OnPropertyChanged(nameof(Reviews));
+            }
+        }
+
+        private async void LoadData() 
+        {
+            Books = new ObservableCollection<Book>(await bookManager.GetMostRecentBooks(5));
+            Reviews = new ObservableCollection<Review>(await bookManager.GetMostRecentReviews(5));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void onPropertyChanged(string propertyName) 
+        protected virtual void OnPropertyChanged(string propertyName) 
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

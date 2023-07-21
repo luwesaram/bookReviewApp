@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -16,14 +17,14 @@ namespace bookReviewConsoleApplication.ViewModel
     {
         private Connection Conn;
 
-        public BookManager()
+        public BookManager(Connection conn)
         {
-            Conn = new Connection();
+            this.Conn = conn;
         }
 
-        public List<Book> GetMostRecentBooks(int count)
+        public ObservableCollection<Book> GetMostRecentBooks(int count)
         {
-            List<Book> books = new List<Book>();
+            ObservableCollection<Book> books = new ObservableCollection<Book>();
 
             try
             {
@@ -48,6 +49,15 @@ namespace bookReviewConsoleApplication.ViewModel
                     {
                         while (reader.Read())
                         {
+
+                            Author author = new Author {
+                                PenName = reader.GetString("pen_name")
+                            };
+                            
+                            Genre genre = new Genre{
+                                Name = reader.IsDBNull("genre_name") ? null : reader.GetString("genre_name")
+                            };
+
                             Book book = new Book();
                             book.ISBNNumber = reader.GetString("ISBNNumber");
                             book.Title = reader.GetString("title");
@@ -55,14 +65,9 @@ namespace bookReviewConsoleApplication.ViewModel
                             book.CoverImage = GetImageFromBytes(reader["cover_image"]);
                             book.PublicationDate = reader.GetDateTime("publication_date");
                             book.PageCount = reader.GetInt32("page_count");
-
-                            Author author = new Author();
-                            author.PenName = reader.GetString("pen_name");
                             book.Author = author;
-
-                            Genre genre = new Genre();
-                            genre.Name = reader.IsDBNull("genre_name") ? null : reader.GetString("genre_name");
                             book.Genre = genre;
+
 
                             byte[] imageData = (byte[])reader["cover_image"];
 
@@ -84,6 +89,66 @@ namespace bookReviewConsoleApplication.ViewModel
             }
 
             return books;
+        }
+
+        public ObservableCollection<Review> GetMostRecentReviews(int count)
+        {
+            ObservableCollection<Review> reviews = new ObservableCollection<Review>();
+
+            try
+            {
+                if(!Conn.OpenConnection())
+                {
+                    MessageBox.Show("Unable to connect to the database.", "Error");
+                    return reviews;
+                }
+
+                string sql ="SELECT u.Username, b.Title, r.Description, r.Rating, r.ReviewDate" +
+                            "FROM reviews r" + 
+                            "JOIN users u ON r.user_id = u.id" +
+                            "JOIN books b ON r.book_id = b.id" +
+                            "LIMIT @count";
+
+                using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection())) 
+                {
+                    command.Parameters.AddWithValue("@count", count);
+                    
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {                       
+                            Book book = new Book {
+                                Title = reader.GetString("title")
+                            };
+
+                            User user = new User {
+                                Username = reader.GetString("username")
+                            };
+
+                            Review review = new Review {
+                                Id = reader.GetInt32("Id"),
+                                ReviewDate = reader.GetDateTime("ReviewDate"),
+                                Description = reader.GetString("Description"),
+                                Rating = reader.GetInt32("Rating"),
+                                Book = book,
+                                User = user
+                            };
+
+                            reviews.Add(review);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+
+            }
+
+            return reviews;
         }
 
         private ImageSource GetImageFromBytes(byte[] imageData)
