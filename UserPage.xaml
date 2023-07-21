@@ -18,6 +18,9 @@
         <viewmodel:MainViewModel />
     </Window.DataContext>
 
+    <Window.Resources>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".25*"/>
@@ -88,13 +91,35 @@
         </Grid>
 
         <!-- Page Content -->
-        <Grid Grid.Row="2" >
+        <Grid Grid.Row="2" Background="#F8F7F5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <!-- This part for the books -->
+            <Grid Grid.Row="1">
+                <!-- binds the ItemsControl Panel to the Books in the MainViewModel, 
+                meaning you could access any of the properties related to the Books 
+                in a {Binding [insertProperty]} format. -->
+                <ItemsControl ItemsSource="{Binding Books}">
+                    <!-- items panel defines the placement of anything put inside it -->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!-- Stack Items Horizontally -->
+                            <StackPanel Orientation = "Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                        <!-- Define how each individual item would be presented -->
+                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
-            <Grid Grid.Row="1" Background="#F8F7F5">
+                </ItemsControl>
+            </Grid>
+            <!-- This part for the reviews  -->
+            <Grid Grid.Row="2">
 
             </Grid>
         </Grid>

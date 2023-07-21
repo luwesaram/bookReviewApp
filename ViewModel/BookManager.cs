@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -24,7 +25,7 @@ namespace bookReviewConsoleApplication.ViewModel
             this.Conn = conn;
         }
 
-        public ObservableCollection<Book> GetMostRecentBooks(int count)
+        public async Task<ObservableCollection<Book>> GetMostRecentBooks(int count)
         {
             ObservableCollection<Book> books = new ObservableCollection<Book>();
 
@@ -37,10 +38,10 @@ namespace bookReviewConsoleApplication.ViewModel
                 }
 
                 string sql = "SELECT b.ISBNNumber, b.title, b.description, b.cover_image, b.publication_date, b.page_count, " +
-                             "a.pen_name, g.genre_name " +
-                             "FROM books b " +
-                             "INNER JOIN authors a ON b.author_id = a.author_id " +
-                             "LEFT JOIN genres g ON b.genre_id = g.genre_id " +
+                             "a.pen_name, g.name " +
+                             "FROM book b " +
+                             "INNER JOIN author a ON b.author_id = a.id " +
+                             "LEFT JOIN genre g ON b.genre_id = g.id " +
                              "ORDER BY b.publication_date DESC LIMIT @count";
 
                 using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection()))
@@ -49,7 +50,7 @@ namespace bookReviewConsoleApplication.ViewModel
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
 
                             Author author = new Author {
@@ -57,24 +58,24 @@ namespace bookReviewConsoleApplication.ViewModel
                             };
                             
                             Genre genre = new Genre{
-                                Name = reader.IsDBNull("genre_name") ? null : reader.GetString("genre_name")
+                                Name = reader.IsDBNull("name") ? null : reader.GetString("name")
                             };
 
                             Book book = new Book();
                             book.ISBNNumber = reader.GetString("ISBNNumber");
                             book.Title = reader.GetString("title");
                             book.Description = reader.GetString("description");
-                            book.CoverImage = GetImageFromBytes(reader["cover_image"]);
                             book.PublicationDate = reader.GetDateTime("publication_date");
                             book.PageCount = reader.GetInt32("page_count");
                             book.Author = author;
                             book.Genre = genre;
 
-
-                            byte[] imageData = (byte[])reader["cover_image"];
-
-                            // Convert the byte array to a BitmapImage
-                            book.CoverImage = GetImageFromBytes(imageData);
+                            object CoverImageObj = reader["cover_image"];
+                            if(CoverImageObj != null && CoverImageObj != DBNull.Value)
+                            {
+                                byte[] imageData = (byte[])CoverImageObj;
+                                book.CoverImage = GetImageFromBytes(imageData);                                
+                            }
 
                             books.Add(book);
                         }
@@ -93,7 +94,7 @@ namespace bookReviewConsoleApplication.ViewModel
             return books;
         }
 
-        public ObservableCollection<Review> GetMostRecentReviews(int count)
+        public async Task<ObservableCollection<Review>> GetMostRecentReviews(int count)
         {
             ObservableCollection<Review> reviews = new ObservableCollection<Review>();
 
@@ -105,10 +106,10 @@ namespace bookReviewConsoleApplication.ViewModel
                     return reviews;
                 }
 
-                string sql ="SELECT u.Username, b.Title, r.Description, r.Rating, r.ReviewDate" +
-                            "FROM reviews r" + 
-                            "JOIN users u ON r.user_id = u.id" +
-                            "JOIN books b ON r.book_id = b.id" +
+                string sql ="SELECT u.Username, b.title, r.description, r.rating, r.review_date " +
+                            "FROM review r " + 
+                            "JOIN user u ON r.user_id = u.id " +
+                            "JOIN book b ON r.book_id = b.ISBNNumber " +
                             "LIMIT @count";
 
                 using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection())) 
@@ -117,7 +118,7 @@ namespace bookReviewConsoleApplication.ViewModel
                     
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        while(reader.Read())
+                        while(await reader.ReadAsync())
                         {                       
                             Book book = new Book {
                                 Title = reader.GetString("title")
@@ -128,10 +129,10 @@ namespace bookReviewConsoleApplication.ViewModel
                             };
 
                             Review review = new Review {
-                                Id = reader.GetInt32("Id"),
-                                ReviewDate = reader.GetDateTime("ReviewDate"),
-                                Description = reader.GetString("Description"),
-                                Rating = reader.GetInt32("Rating"),
+                                Id = reader.GetInt32("id"),
+                                ReviewDate = reader.GetDateTime("review_date"),
+                                Description = reader.GetString("description"),
+                                Rating = reader.GetInt32("rating"),
                                 Book = book,
                                 User = user
                             };
