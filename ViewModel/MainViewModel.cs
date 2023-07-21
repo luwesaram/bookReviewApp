@@ -8,6 +8,8 @@ namespace bookReviewConsoleApplication.ViewModel
     {
         private readonly Connection connection;
         private readonly BookManager bookManager;
+        // when MainViewModel loads, initializes a connection and an bookmanager object
+        // afterwards, it loads the data necesssary
         public MainViewModel() 
         {
             connection = new Connection();
@@ -35,7 +37,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 OnPropertyChanged(nameof(Reviews));
             }
         }
-
+        
         private async void LoadData() 
         {
             Books = new ObservableCollection<Book>(await bookManager.GetMostRecentBooks(5));

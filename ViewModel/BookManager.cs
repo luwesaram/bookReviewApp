@@ -17,6 +17,8 @@ namespace bookReviewConsoleApplication.ViewModel
     {
         private Connection Conn;
 
+        // when BookManager loads, it constructs the connection property in order for the Conn to be globally usable by other 
+        // existing methods
         public BookManager(Connection conn)
         {
             this.Conn = conn;
