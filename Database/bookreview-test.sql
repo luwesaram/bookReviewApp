@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2023 at 05:17 AM
+-- Generation Time: Jul 21, 2023 at 01:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -74,7 +74,7 @@ INSERT INTO `book` (`ISBNNumber`, `author_id`, `title`, `description`, `genre_id
 
 CREATE TABLE `genre` (
   `Id` int(5) NOT NULL,
-  `Description` varchar(250) NOT NULL
+  `Name` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -86,7 +86,7 @@ CREATE TABLE `genre` (
 CREATE TABLE `review` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `book_ISBNNumber` varchar(255) NOT NULL,
+  `book_id` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `rating` decimal(3,2) NOT NULL,
   `review_date` datetime NOT NULL
@@ -150,8 +150,8 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_user_book_review` (`user_id`,`book_ISBNNumber`),
-  ADD KEY `book_ISBNNumber` (`book_ISBNNumber`);
+  ADD UNIQUE KEY `unique_user_book_review` (`user_id`,`book_id`),
+  ADD KEY `book_ISBNNumber` (`book_id`);
 
 --
 -- Indexes for table `user`
@@ -209,7 +209,7 @@ ALTER TABLE `book`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`Id`),
-  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`book_ISBNNumber`) REFERENCES `book` (`ISBNNumber`);
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `book` (`ISBNNumber`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
