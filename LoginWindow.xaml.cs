@@ -65,7 +65,7 @@ namespace bookReviewConsoleApplication
 
             try
             {
-                string sql = "SELECT Username FROM user WHERE Username = '"+ username +"' AND Password = '"+ password +"'";
+                string sql = "SELECT username FROM user WHERE username = '"+ username +"' AND Password = '"+ password +"'";
                 MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
                 Result = Statement.ExecuteScalar();
 
