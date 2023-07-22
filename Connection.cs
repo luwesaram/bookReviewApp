@@ -34,18 +34,7 @@ namespace bookReviewConsoleApplication
                 return false;
             }
         }
-
-        /*public static bool CheckUserExists(string username, string email)
-        {
-            using (MySqlConnection conn = new ) 
-            {
-
-            }
-                if(Conn.OpenConnection()) {                    
-                    string sql = $"SELECT COUNT(*) FROM users WHERE username = '{username}' OR email = '{email}'";
-                }
-        }*/
-
+        
         public void CloseConnection()
         {
             this.Conn.Close();

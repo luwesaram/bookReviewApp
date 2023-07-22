@@ -11,16 +11,6 @@
         WindowStartupLocation="CenterScreen"
         xmlns:viewmodel="clr-namespace:bookReviewConsoleApplication.ViewModel">
     
-    <!-- this binds the UI to the MainViewModel so when we call {Binding Reviews} it would be able to access the
-    publicly available ObservableCollection of Reviews -->
-    
-    <Window.DataContext>
-        <viewmodel:MainViewModel />
-    </Window.DataContext>
-
-    <Window.Resources>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".25*"/>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using bookReviewConsoleApplication.ViewModel;
 
 namespace bookReviewConsoleApplication
 {
@@ -21,7 +22,9 @@ namespace bookReviewConsoleApplication
     {
         public UserPage()
         {
+    
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
     }
 }

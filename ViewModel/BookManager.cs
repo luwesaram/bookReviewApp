@@ -27,7 +27,7 @@ namespace bookReviewConsoleApplication.ViewModel
 
         public async Task<ObservableCollection<Book>> GetMostRecentBooks(int count)
         {
-            ObservableCollection<Book> books = new ObservableCollection<Book>();
+            ObservableCollection<Book> books = new();
 
             try
             {
@@ -37,14 +37,14 @@ namespace bookReviewConsoleApplication.ViewModel
                     return books;
                 }
 
-                string sql = "SELECT b.ISBNNumber, b.title, b.description, b.cover_image, b.publication_date, b.page_count, " +
-                             "a.pen_name, g.name " +
+                string sql = "SELECT b.cover_image, b.title, " +
+                             "a.pen_name, u.username " +
                              "FROM book b " +
-                             "INNER JOIN author a ON b.author_id = a.id " +
-                             "LEFT JOIN genre g ON b.genre_id = g.id " +
+                             "JOIN author a ON b.author_id = a.id " +
+                             "JOIN user u ON u.id = a.user_id " + 
                              "ORDER BY b.publication_date DESC LIMIT @count";
 
-                using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection()))
+                using (MySqlCommand command = new(sql, Conn.GetConnection()))
                 {
                     command.Parameters.AddWithValue("@count", count);
 
@@ -53,22 +53,21 @@ namespace bookReviewConsoleApplication.ViewModel
                         while (await reader.ReadAsync())
                         {
 
-                            Author author = new Author {
-                                PenName = reader.GetString("pen_name")
-                            };
-                            
-                            Genre genre = new Genre{
-                                Name = reader.IsDBNull("name") ? null : reader.GetString("name")
+
+                            User user = new()
+                            {
+                                Username = reader.GetString("username")
                             };
 
-                            Book book = new Book();
-                            book.ISBNNumber = reader.GetString("ISBNNumber");
-                            book.Title = reader.GetString("title");
-                            book.Description = reader.GetString("description");
-                            book.PublicationDate = reader.GetDateTime("publication_date");
-                            book.PageCount = reader.GetInt32("page_count");
-                            book.Author = author;
-                            book.Genre = genre;
+                            Author author = new(user.Username)
+                            {
+                                PenName = reader.GetString("pen_name"),
+                            };
+
+                            Book book = new()
+                            {
+                                Author = author,
+                            };
 
                             object CoverImageObj = reader["cover_image"];
                             if(CoverImageObj != null && CoverImageObj != DBNull.Value)
@@ -96,7 +95,7 @@ namespace bookReviewConsoleApplication.ViewModel
 
         public async Task<ObservableCollection<Review>> GetMostRecentReviews(int count)
         {
-            ObservableCollection<Review> reviews = new ObservableCollection<Review>();
+            ObservableCollection<Review> reviews = new();
 
             try
             {
@@ -106,13 +105,13 @@ namespace bookReviewConsoleApplication.ViewModel
                     return reviews;
                 }
 
-                string sql ="SELECT u.Username, b.title, r.description, r.rating, r.review_date " +
+                string sql ="SELECT u.username, b.title, r.description, r.rating, r.review_date " +
                             "FROM review r " + 
                             "JOIN user u ON r.user_id = u.id " +
-                            "JOIN book b ON r.book_id = b.ISBNNumber " +
+                            "JOIN book b ON r.book_id = b.id " +
                             "LIMIT @count";
 
-                using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection())) 
+                using (MySqlCommand command = new(sql, Conn.GetConnection())) 
                 {
                     command.Parameters.AddWithValue("@count", count);
                     
@@ -120,15 +119,18 @@ namespace bookReviewConsoleApplication.ViewModel
                     {
                         while(await reader.ReadAsync())
                         {                       
-                            Book book = new Book {
+                            Book book = new()
+                            {
                                 Title = reader.GetString("title")
                             };
 
-                            User user = new User {
+                            User user = new()
+                            {
                                 Username = reader.GetString("username")
                             };
 
-                            Review review = new Review {
+                            Review review = new()
+                            {
                                 Id = reader.GetInt32("id"),
                                 ReviewDate = reader.GetDateTime("review_date"),
                                 Description = reader.GetString("description"),
