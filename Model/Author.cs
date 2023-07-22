@@ -10,6 +10,6 @@ namespace bookReviewConsoleApplication.Model
     {
         public Author(string username) : base(username) { }
         
-        public string? PenName { get; set; }
+        public string PenName { get; set; }
     }
 }
