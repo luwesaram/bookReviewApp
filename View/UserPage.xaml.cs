@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using bookReviewConsoleApplication.ViewModel;
+using bookReviewConsoleApplication.View;
 
 namespace bookReviewConsoleApplication
 {
@@ -25,6 +26,13 @@ namespace bookReviewConsoleApplication
     
             InitializeComponent();
             this.DataContext = new MainViewModel();
+        }
+
+        private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            BookDetailPage bookDetailPage = new BookDetailPage();
+            bookDetailPage.Show();
+            this.Close();
         }
     }
 }

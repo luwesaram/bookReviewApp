@@ -102,7 +102,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                         <!-- Define how each individual item would be presented -->
-                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5"/>
+                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5" MouseLeftButtonDown="ImgMouseLeftButtonDown"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 
