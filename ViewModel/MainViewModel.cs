@@ -34,7 +34,7 @@ namespace bookReviewConsoleApplication.ViewModel
         // data is loaded asyncly in order to not block the other tasks. 
         private async void LoadData() 
         {
-            Books = await bookManager.GetMostRecentBooks(5);
+            Books = await bookManager.GetMostRecentBooks();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

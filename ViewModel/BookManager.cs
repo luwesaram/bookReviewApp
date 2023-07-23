@@ -25,7 +25,7 @@ namespace bookReviewConsoleApplication.ViewModel
             this.Conn = conn;
         }
 
-        public async Task<ObservableCollection<Book>> GetMostRecentBooks(int count)
+        public async Task<ObservableCollection<Book>> GetMostRecentBooks()
         {
             ObservableCollection<Book> books = new();
 
@@ -42,11 +42,11 @@ namespace bookReviewConsoleApplication.ViewModel
                              "FROM book b " +
                              "JOIN author a ON b.author_id = a.id " +
                              "JOIN user u ON u.id = a.user_id " + 
-                             "ORDER BY b.publication_date DESC LIMIT @count";
+                             "ORDER BY b.publication_date DESC";
 
                 using (MySqlCommand command = new(sql, Conn.GetConnection()))
                 {
-                    command.Parameters.AddWithValue("@count", count);
+                   // command.Parameters.AddWithValue("@count", count);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
