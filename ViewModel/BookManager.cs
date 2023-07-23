@@ -59,10 +59,25 @@ namespace bookReviewConsoleApplication.ViewModel
                                 Username = reader.GetString("username")
                             };
 
-                            Author author = new(user.Username)
+                            Author author = new Author(user.Username);
+
+                            int penNameOrdinal = reader.GetOrdinal("pen_name");
+                            if (!reader.IsDBNull(penNameOrdinal))
                             {
-                               // PenName = reader.GetString("pen_name")
-                            };
+                                author.PenName = reader.GetString(penNameOrdinal);
+                            }
+                            else
+                            {
+                                int usernameOrdinal = reader.GetOrdinal("username");
+                                if (!reader.IsDBNull(usernameOrdinal))
+                                {
+                                    author.PenName = reader.GetString(usernameOrdinal);
+                                }
+                                else
+                                {
+                                    author.PenName = reader.GetString("username");
+                                }
+                            }
 
                             Book book = new()
                             {
@@ -70,6 +85,7 @@ namespace bookReviewConsoleApplication.ViewModel
                                 Description = reader.GetString("description"),
                                 PublicationDate = reader.GetDateTime("publication_date"),
                                 Author = author
+
                             };
 
                             object CoverImageObj = reader["cover_image"];

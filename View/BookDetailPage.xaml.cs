@@ -30,5 +30,12 @@ namespace bookReviewConsoleApplication.View
             DataContext = viewModel;
         }
 
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            UserPage userPage = new UserPage();
+            userPage.Show();
+            this.Close();
+        }
+
     }
 }
