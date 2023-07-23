@@ -37,7 +37,7 @@ namespace bookReviewConsoleApplication.ViewModel
                     return books;
                 }
 
-                string sql = "SELECT b.cover_image, b.title, " +
+                string sql = "SELECT b.*, " +
                              "a.pen_name, u.username " +
                              "FROM book b " +
                              "JOIN author a ON b.author_id = a.id " +
@@ -66,7 +66,10 @@ namespace bookReviewConsoleApplication.ViewModel
 
                             Book book = new()
                             {
-                                Author = author,
+                                Title = reader.GetString("title"),
+                                Description = reader.GetString("description"),
+                                PublicationDate = reader.GetDateTime("publication_date"),
+                                Author = author
                             };
 
                             object CoverImageObj = reader["cover_image"];
@@ -150,7 +153,7 @@ namespace bookReviewConsoleApplication.ViewModel
             }
             finally
             {
-
+                Conn.CloseConnection();
             }
 
             return reviews;

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using bookReviewConsoleApplication.Model;
 
 namespace bookReviewConsoleApplication.View
 {
@@ -19,9 +20,14 @@ namespace bookReviewConsoleApplication.View
     /// </summary>
     public partial class BookDetailPage : Window
     {
-        public BookDetailPage()
+        private readonly Book book;
+        public BookDetailPage(Book book)
         {
             InitializeComponent();
+            this.book = book;
+            // with DataContext set to book property, you may now
+            // access book properties using the syntax {Binding [PropertyName]}
+            DataContext = book;
         }
     }
 }
