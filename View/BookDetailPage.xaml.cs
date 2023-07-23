@@ -23,14 +23,11 @@ namespace bookReviewConsoleApplication.View
     public partial class BookDetailPage : Window
     {
         private readonly BookDetailViewModel viewModel;
-        private readonly Book Book;
         public BookDetailPage(Book book)
         {
             InitializeComponent();
-            this.Book = book;
-            DataContext = Book;
-            //viewModel = new BookDetailViewModel(book);
-            //DataContext = viewModel;
+            viewModel = new BookDetailViewModel(book);
+            DataContext = viewModel;
         }
 
     }
