@@ -3,12 +3,136 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls"
         xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
         mc:Ignorable="d"
-        Title="BookDetailPage" Height="450" Width="800"
+        Title="BookDetailPage" Height="800" Width="800"
         MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="{Binding Book.Title}" FontSize="24" FontWeight="Bold" Margin="10" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".10*"/>
+            <RowDefinition Height=".05*"/>
+            <RowDefinition Height=".80*"/>
+            <RowDefinition Height=".05*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" MinHeight="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.05*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.05*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.ColumnSpan="3" Fill="#FF252422"/>
+            <Label Name="lblHeader" Grid.Column="1" FontFamily="Consolas" Content="NovelNotes" FontSize="30" FontWeight="Bold" 
+                   Foreground="#EB5E28" HorizontalAlignment="Left" VerticalAlignment="Center" 
+            />
+
+            <!-- Middle Column -->
+            <Grid Grid.Column="1" MinWidth="725">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Username -->
+                <Grid Grid.Column="1">
+                    <Label Name="lblUserName" Content="Hi,(UserName)!" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="15" Margin="0,0,20,0" HorizontalAlignment="Left"/>
+                </Grid>
+
+                <!-- Settings -->
+                <Grid Grid.Column="2">
+                    <Image Source="/assets/settingsIconWhite.png" Width="20" HorizontalAlignment="Left"/>
+                    <Label Content="Settings" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="15" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                </Grid>
+
+                <!-- Logout -->
+                <Grid Grid.Column="3">
+                    <Image Source="/assets/logOutIcon.png" Width="20" HorizontalAlignment="Left"/>
+                    <Label Content="Logout" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="15" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <!-- Search Box -->
+        <Grid Grid.Row="1" Background="#F8F7F5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".05*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width=".05*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".05*"/>
+            </Grid.RowDefinitions>
+
+            <!--Column 1-->
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBox Name="txtBxSearch" Height="20" Background="#F8F7F5" FontFamily="Consolas" Margin="5,0,5,0" Padding="5,2,5,2" />
+                    <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,0,10,0"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".05*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width=".05*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Column 1-->
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".020*"/>
+                    <ColumnDefinition Width=".05*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!--Image / Button -->
+                <Grid Grid.Column="0">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button Name="BtnBack" Click="BtnBack_Click" Content="Back" Width="100" Foreground="#EB5E28"  Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0" Background="White" BorderThickness="0" FontSize="14" FontFamily="Fira Code" />
+                    <Image Source="/assets/93634.png" Width="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,12,0,0" />
+                    <Grid Grid.Row="0">
+                        <Image Source="{Binding Book.CoverImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Center" Height="Auto" Width="Auto" MaxHeight="400" MaxWidth="220" Margin="0,50,0,0"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Button Name="BtnCreate" Content="Write a review" Width="150" Height="35" Margin="0,5,0,0" VerticalAlignment="Top" Background="#EB5E28" BorderThickness="0" FontSize="18" FontFamily="Fira Code">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                </Grid>
+                
+                <!--Description-->
+                <Grid Grid.Column="1">
+                    <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Bold" Margin="20,40,0,0"/>
+                    <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="20,66,0,0"/>
+                    <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="13" Margin="25,100,0,0" 
+                               LineStackingStrategy="BlockLineHeight"  LineHeight="15" TextWrapping="Wrap"/>
+                    <Label Content="{Binding Book.Genre}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="20,66,0,0"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+        <!--Footer-->
+        <Grid Grid.Row="3">
+            <userControl:loginFooters/>
+        </Grid>
+
     </Grid>
 </Window>
