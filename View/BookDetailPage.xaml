@@ -9,6 +9,6 @@
         MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="{Binding Title}" FontSize="24" FontWeight="Bold" Margin="10" />
+        <Label Content="{Binding Book.Title}" FontSize="24" FontWeight="Bold" Margin="10" />
     </Grid>
 </Window>
