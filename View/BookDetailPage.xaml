@@ -8,7 +8,7 @@
         Title="BookDetailPage" Height="450" Width="800"
         MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label Content="{Binding Book.Title}" FontSize="24" FontWeight="Bold" Margin="10" />
+    <Grid >
+        <Label Grid.Column="0" Content="{Binding Book.Title}" FontSize="24" FontWeight="Bold" Margin="10" />
     </Grid>
 </Window>
