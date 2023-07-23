@@ -73,7 +73,7 @@ namespace bookReviewConsoleApplication
 
             try
             {
-                string sql = "SELECT COUNT(*) FROM user WHERE Username = @username OR Email = @email";
+                string sql = "SELECT COUNT(*) FROM user WHERE username = @username OR email = @email";
                 MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
                 command.Parameters.AddWithValue("@username", username);
                 command.Parameters.AddWithValue("@email", email);
@@ -93,7 +93,7 @@ namespace bookReviewConsoleApplication
         {
             try
             { 
-                string sql = $"INSERT INTO user (Username, Email, Password) VALUES ('{username}', '{email}', '{password}')";
+                string sql = $"INSERT INTO user (username, email, password) VALUES ('{username}', '{email}', '{password}')";
                 MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
 
                 int rowsAffected = command.ExecuteNonQuery();

@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bookReviewConsoleApplication"
-        xmlns:userControl="clr-namespace:bookReviewConsoleApplication.userControls"
+        xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls"
         mc:Ignorable="d"
         Title="UserPage" Height="450" Width="800"
         MinHeight="600" MinWidth="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        xmlns:viewmodel="clr-namespace:bookReviewConsoleApplication.ViewModel">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".25*"/>
@@ -79,13 +81,35 @@
         </Grid>
 
         <!-- Page Content -->
-        <Grid Grid.Row="2" >
+        <Grid Grid.Row="2" Background="#F8F7F5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <!-- This part for the books -->
+            <Grid Grid.Row="0">
+                <!-- binds the ItemsControl Panel to the Books in the MainViewModel, 
+                meaning you could access any of the properties related to the Books 
+                in a {Binding [insertProperty]} format. -->
+                <ItemsControl ItemsSource="{Binding Books}">
+                    <!-- items panel defines the placement of anything put inside it -->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!-- Stack Items Horizontally -->
+                            <StackPanel Orientation = "Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                        <!-- Define how each individual item would be presented -->
+                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
-            <Grid Grid.Row="1" Background="#F8F7F5">
+                </ItemsControl>
+            </Grid>
+            <!-- This part for the reviews  -->
+            <Grid Grid.Row="1">
 
             </Grid>
         </Grid>
