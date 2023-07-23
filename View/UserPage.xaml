@@ -91,18 +91,18 @@
                 <!-- binds the ItemsControl Panel to the Books in the MainViewModel, 
                 meaning you could access any of the properties related to the Books 
                 in a {Binding [insertProperty]} format. -->
-                <ItemsControl ItemsSource="{Binding Books}">
+                <ItemsControl ItemsSource="{Binding Books}" Margin="20,0,20,5" HorizontalAlignment="Center">
                     <!-- items panel defines the placement of anything put inside it -->
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <!-- Stack Items Horizontally -->
-                            <StackPanel Orientation = "Horizontal" />
+                            <StackPanel Orientation = "Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                         <!-- Define how each individual item would be presented -->
-                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}"/>
+                            <Image Source="{Binding CoverImage}" MinHeight="150" MinWidth="100" Width="Auto" Height="Auto" Margin="15" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 
