@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using bookReviewConsoleApplication.ViewModel;
 using bookReviewConsoleApplication.View;
+using bookReviewConsoleApplication.Model;
 
 namespace bookReviewConsoleApplication
 {
@@ -30,9 +31,15 @@ namespace bookReviewConsoleApplication
 
         private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            BookDetailPage bookDetailPage = new BookDetailPage();
-            bookDetailPage.Show();
-            this.Close();
+            var image = (Image)sender;
+
+            if (image.Tag is Book book)
+            {
+                BookDetailPage bookDetailPage = new BookDetailPage(book);
+                bookDetailPage.Show();
+                this.Close();
+            }
+
         }
     }
 }

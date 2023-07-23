@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
         mc:Ignorable="d"
-        Title="Book Details" Height="450" Width="800"
+        Title="BookDetailPage" Height="450" Width="800"
         MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Label Content="{Binding Title}" FontSize="24" FontWeight="Bold" Margin="10" />
     </Grid>
 </Window>

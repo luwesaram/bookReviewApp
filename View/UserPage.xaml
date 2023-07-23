@@ -87,7 +87,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <!-- This part for the books -->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="0">
                 <!-- binds the ItemsControl Panel to the Books in the MainViewModel, 
                 meaning you could access any of the properties related to the Books 
                 in a {Binding [insertProperty]} format. -->
@@ -102,14 +102,14 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                         <!-- Define how each individual item would be presented -->
-                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5" MouseLeftButtonDown="ImgMouseLeftButtonDown"/>
+                            <Image Source="{Binding CoverImage}" Width="100" Height="150" Margin="5" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 
                 </ItemsControl>
             </Grid>
             <!-- This part for the reviews  -->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
 
             </Grid>
         </Grid>
