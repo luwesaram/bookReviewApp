@@ -61,7 +61,7 @@ namespace bookReviewConsoleApplication.ViewModel
 
                             Author author = new(user.Username)
                             {
-                                // PenName = reader.GetString("pen_name")
+                               // PenName = reader.GetString("pen_name")
                             };
 
                             Book book = new()
