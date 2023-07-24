@@ -15,8 +15,9 @@ namespace bookReviewConsoleApplication
         public UserPage()
         {
             InitializeComponent();
-            MessageBox.Show("Hi", "Nice", MessageBoxButton.OK);
             this.DataContext = new MainViewModel();
+            User user = CurrentUserManager.Instance.CurrentUser;
+            lblUserName.Content = "Hi " + user.Username;
         }
 
         private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -38,6 +39,7 @@ namespace bookReviewConsoleApplication
 
             if (result == MessageBoxResult.Yes)
             {
+                CurrentUserManager.Instance.CurrentUser = null;
                 var currentWindow = Window.GetWindow(this);
 
                 MainWindow mainWindow = new MainWindow();

@@ -42,7 +42,7 @@
 
                 <!-- Username -->
                 <Grid Grid.Column="1">
-                    <Label Name="lblUserName" Content="Hi, user!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="17" HorizontalAlignment="Center"/>
+                    <Label Name="lblUserName" Content="" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="17" HorizontalAlignment="Center"/>
                 </Grid>
 
                 <!-- Settings -->
