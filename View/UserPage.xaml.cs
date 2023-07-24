@@ -17,7 +17,7 @@ namespace bookReviewConsoleApplication
             InitializeComponent();
             this.DataContext = new MainViewModel();
             User user = CurrentUserManager.Instance.CurrentUser;
-            lblUserName.Content = "Hi " + user.Username;
+            lblUserName.Content = "Hi," + user.Username + "!";
         }
 
         private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
