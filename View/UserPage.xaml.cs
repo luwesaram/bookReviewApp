@@ -22,11 +22,10 @@ namespace bookReviewConsoleApplication
     /// </summary>
     public partial class UserPage : Window
     {
-        public UserPage()
+        public UserPage(User user)
         {
-    
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            this.DataContext = new MainViewModel(user);
         }
 
         private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

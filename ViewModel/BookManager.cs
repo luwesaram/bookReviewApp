@@ -1,5 +1,6 @@
 using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto.Operators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,9 +39,11 @@ namespace bookReviewConsoleApplication.ViewModel
                 }
 
                 string sql = "SELECT b.*, " +
-                             "a.pen_name, u.username " +
+                             "a.pen_name, u.username, " +
+                             "g.name " + 
                              "FROM book b " +
                              "JOIN author a ON b.author_id = a.id " +
+                             "JOIN genre g ON g.id = b.genre_id " + 
                              "JOIN user u ON u.id = a.user_id " + 
                              "ORDER BY b.publication_date DESC";
 
@@ -60,6 +63,11 @@ namespace bookReviewConsoleApplication.ViewModel
                             };
 
                             Author author = new Author(user.Username);
+
+                            Genre genre = new()
+                            {
+                                Name = reader.GetString("name")
+                            };
 
                             int penNameOrdinal = reader.GetOrdinal("pen_name");
                             if (!reader.IsDBNull(penNameOrdinal))
@@ -81,11 +89,13 @@ namespace bookReviewConsoleApplication.ViewModel
 
                             Book book = new()
                             {
+                                ISBNNumber = reader.GetString("id"),
                                 Title = reader.GetString("title"),
                                 Description = reader.GetString("description"),
                                 PublicationDate = reader.GetDateTime("publication_date"),
-                                Author = author
-
+                                PageCount = reader.GetInt32("page_count"),
+                                Author = author,
+                                Genre = genre
                             };
 
                             object CoverImageObj = reader["cover_image"];
