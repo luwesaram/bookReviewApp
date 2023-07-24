@@ -26,8 +26,10 @@ namespace bookReviewConsoleApplication.View
         public BookDetailPage(Book book)
         {
             InitializeComponent();
+            User currentUser = CurrentUserManager.Instance.CurrentUser;
             viewModel = new BookDetailViewModel(book);
             DataContext = viewModel;
+            lblUserName.Content = "Hi " + currentUser.Username;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
