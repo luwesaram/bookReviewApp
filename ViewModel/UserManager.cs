@@ -168,9 +168,8 @@ namespace bookReviewConsoleApplication.ViewModel
 
                 if (user != null)
                 {
-                    MessageBox.Show("Login Successfully", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
-                    // insert code to redirect to main
-                    UserPage userPage = new UserPage(user);
+                    CurrentUserManager.Instance.CurrentUser = user;
+                    UserPage userPage = new UserPage();
                     userPage.Show();
                     currentWindow.Close();
                 }

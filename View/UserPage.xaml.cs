@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using bookReviewConsoleApplication.Model;
+using bookReviewConsoleApplication.View;
+using bookReviewConsoleApplication.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using bookReviewConsoleApplication.ViewModel;
-using bookReviewConsoleApplication.View;
-using bookReviewConsoleApplication.Model;
 
 namespace bookReviewConsoleApplication
 {
@@ -22,10 +12,11 @@ namespace bookReviewConsoleApplication
     /// </summary>
     public partial class UserPage : Window
     {
-        public UserPage(User user)
+        public UserPage()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel(user);
+            MessageBox.Show("Hi", "Nice", MessageBoxButton.OK);
+            this.DataContext = new MainViewModel();
         }
 
         private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
