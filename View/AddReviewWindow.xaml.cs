@@ -1,50 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using bookReviewConsoleApplication.Model;
+﻿using bookReviewConsoleApplication.Model;
 using bookReviewConsoleApplication.ViewModel;
-
+using System.Windows;
 
 namespace bookReviewConsoleApplication.View
 {
-    /// <summary>
-    /// Interaction logic for BookDetailPage.xaml
-    /// </summary>
-    public partial class BookDetailPage : Window
+    public partial class AddReviewWindow : Window
     {
         private readonly BookDetailViewModel viewModel;
         private Book currentBook;
-        public BookDetailPage(Book book)
+
+        public AddReviewWindow(Book book)
         {
             InitializeComponent();
-            User currentUser = CurrentUserManager.Instance.CurrentUser;
+            User user = CurrentUserManager.Instance.CurrentUser;
             viewModel = new BookDetailViewModel(book);
-            DataContext = viewModel;
-            lblUserName.Content = "Hi " + currentUser.Username;
             currentBook = book;
+            DataContext = viewModel;
+            lblUserName.Content = "Hi " + user.Username;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            UserPage userPage = new UserPage();
-            userPage.Show();
-            this.Close();
-        }
-
-        private void BtnCreate_Click(object sender, RoutedEventArgs e)
-        {
-            AddReviewWindow addReview = new AddReviewWindow(currentBook);
-            addReview.Show();
+            BookDetailPage bookDetail = new BookDetailPage(currentBook);
+            bookDetail.Show();
             this.Close();
         }
 
@@ -62,6 +40,5 @@ namespace bookReviewConsoleApplication.View
                 currentWindow.Close();
             }
         }
-
     }
 }
