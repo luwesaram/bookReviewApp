@@ -83,87 +83,6 @@
                 </Grid>
             </Grid>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".05*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width=".05*"/>
-            </Grid.ColumnDefinitions>
-            
-            <!--Column 1-->
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".020*"/>
-                    <ColumnDefinition Width=".05*"/>
-                </Grid.ColumnDefinitions>
-                
-                <!--Image / Button -->
-                <Grid Grid.Column="0">
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Button Name="BtnBack" Click="BtnBack_Click" Content="Back" Width="100" Foreground="#EB5E28"  Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0" Background="White" BorderThickness="0" FontSize="14" FontFamily="Fira Code" />
-                    <Image Source="/assets/93634.png" Width="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,12,0,0" />
-                    <Grid Grid.Row="0">
-                        <Image Source="{Binding Book.CoverImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Center" Height="Auto" Width="Auto" MaxHeight="400" MaxWidth="220" Margin="0,50,0,0"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Button Name="BtnCreate" Content="Write a review" Width="150" Height="35" Margin="0,5,0,0" VerticalAlignment="Top" Background="#EB5E28" BorderThickness="0" FontSize="18" FontFamily="Fira Code">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="3"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                    </Grid>
-                </Grid>
-                
-                <!--Description-->
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Margin="20,0,0,0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                    
-                        <!-- Descripption Portion -->
-                        <StackPanel Grid.Row="0">
-                            <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Bold" Margin="0,40,0,0"/>
-                            <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="0,3,0,0"/>
-                            <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="13" Margin="0,24,0,0" 
-                                       LineStackingStrategy="BlockLineHeight"  LineHeight="15" TextWrapping="Wrap"/>
-                            <Label Content="{Binding Book.Genre.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="0,24,0,0"/>
-                        </StackPanel>
-                    
-                        <!-- Insert Review Stats in Here -->
-                        <Grid Grid.Row="1">
-                            
-                        </Grid>
-                        
-                        <!-- Reviews -->
-                        <ItemsControl ItemsSource="{Binding Reviews}" Grid.Row="2">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <!-- Should work except we dont have descriptions yet -->
-                                    <Label Content="{Binding Description}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>    
-                    
-                    </Grid>
-                </ScrollViewer>
-
-                
-            </Grid>
-        </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width=".05*"/>
@@ -202,23 +121,52 @@
                     </Grid>
 
                     <!--Description-->
-                    <Grid Grid.Column="1">
-                        <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Bold" Margin="20,40,0,0"/>
-                        <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="20,66,0,0"/>
-                        <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="13" Margin="25,100,0,0" 
-                               LineStackingStrategy="BlockLineHeight"  LineHeight="15" TextWrapping="Wrap"/>
-                        <Label Content="{Binding Book.Genre}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="20,66,0,0"/>
-                    </Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Margin="20,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Descripption Portion -->
+                            <StackPanel Grid.Row="0">
+                                <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Bold" Margin="0,40,0,0"/>
+                                <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="0,3,0,0"/>
+                                <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="13" Margin="0,24,0,0" 
+                                       LineStackingStrategy="BlockLineHeight"  LineHeight="15" TextWrapping="Wrap"/>
+                                <Label Content="{Binding Book.Genre.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="0,24,0,0"/>
+                            </StackPanel>
+
+                            <!-- Insert Review Stats in Here -->
+                            <Grid Grid.Row="1">
+
+                            </Grid>
+
+                            <!-- Reviews -->
+                            <ItemsControl ItemsSource="{Binding Reviews}" Grid.Row="2">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- Should work except we dont have descriptions yet -->
+                                        <Label Content="{Binding Description}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Grid>
+                    </ScrollViewer>
+
+
                 </Grid>
             </Grid>
-
-
-            <!--Footer-->
             <Grid Grid.Row="3">
                 <userControl:loginFooters/>
             </Grid>
-
-            <!-- >>>>>>> e1faaf8d1387cc0091495cbf877e3e83d5988995 -->
         </Grid>
     </Grid>
 </Window>
