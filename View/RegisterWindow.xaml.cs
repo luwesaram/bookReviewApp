@@ -25,7 +25,7 @@ namespace bookReviewConsoleApplication
             RegisterViewModel registerModel = new RegisterViewModel(username, email, password, confirm, this);
         }
 
-        private void lblExistUserDoubleClick(object sender, MouseButtonEventArgs e)
+        private void btnLoginNow_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
             loginWindow.Show();

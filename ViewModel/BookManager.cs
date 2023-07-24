@@ -1,5 +1,6 @@
 using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto.Operators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +26,7 @@ namespace bookReviewConsoleApplication.ViewModel
             this.Conn = conn;
         }
 
-        public async Task<ObservableCollection<Book>> GetMostRecentBooks(int count)
+        public async Task<ObservableCollection<Book>> GetMostRecentBooks()
         {
             ObservableCollection<Book> books = new();
 
@@ -38,15 +39,17 @@ namespace bookReviewConsoleApplication.ViewModel
                 }
 
                 string sql = "SELECT b.*, " +
-                             "a.pen_name, u.username " +
+                             "a.pen_name, u.username, " +
+                             "g.name " + 
                              "FROM book b " +
                              "JOIN author a ON b.author_id = a.id " +
+                             "JOIN genre g ON g.id = b.genre_id " + 
                              "JOIN user u ON u.id = a.user_id " + 
-                             "ORDER BY b.publication_date DESC LIMIT @count";
+                             "ORDER BY b.publication_date DESC";
 
                 using (MySqlCommand command = new(sql, Conn.GetConnection()))
                 {
-                    command.Parameters.AddWithValue("@count", count);
+                   // command.Parameters.AddWithValue("@count", count);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -59,17 +62,40 @@ namespace bookReviewConsoleApplication.ViewModel
                                 Username = reader.GetString("username")
                             };
 
-                            Author author = new(user.Username)
+                            Author author = new Author(user.Username);
+
+                            Genre genre = new()
                             {
-                                // PenName = reader.GetString("pen_name")
+                                Name = reader.GetString("name")
                             };
+
+                            int penNameOrdinal = reader.GetOrdinal("pen_name");
+                            if (!reader.IsDBNull(penNameOrdinal))
+                            {
+                                author.PenName = reader.GetString(penNameOrdinal);
+                            }
+                            else
+                            {
+                                int usernameOrdinal = reader.GetOrdinal("username");
+                                if (!reader.IsDBNull(usernameOrdinal))
+                                {
+                                    author.PenName = reader.GetString(usernameOrdinal);
+                                }
+                                else
+                                {
+                                    author.PenName = reader.GetString("username");
+                                }
+                            }
 
                             Book book = new()
                             {
+                                ISBNNumber = reader.GetString("id"),
                                 Title = reader.GetString("title"),
                                 Description = reader.GetString("description"),
                                 PublicationDate = reader.GetDateTime("publication_date"),
-                                Author = author
+                                PageCount = reader.GetInt32("page_count"),
+                                Author = author,
+                                Genre = genre
                             };
 
                             object CoverImageObj = reader["cover_image"];

@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:bookReviewConsoleApplication"
         xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls"
         mc:Ignorable="d"
-        Title="UserPage" Height="450" Width="800"
-        MinHeight="600" MinWidth="800"
+        Title="UserPage" Height="600" Width="1200"
+        MinHeight="600" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
         xmlns:viewmodel="clr-namespace:bookReviewConsoleApplication.ViewModel">
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".25*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
             <RowDefinition/>
             <RowDefinition Height=".1*"/>
         </Grid.RowDefinitions>
@@ -66,6 +66,10 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width=".05*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
             
             <!--Column 1-->
             <Grid Grid.Column="1">
@@ -78,42 +82,41 @@
                     <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,0,10,0"/>
                 </Grid>
             </Grid>
+            <!-- Column 2 -->
+            <Grid Grid.Row="1" Grid.Column="1">
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Featured Books" Margin="5,0,0,0" FontSize="15" FontFamily="Consolas"/>
+                <Border Width="120" Margin="5,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Left" BorderBrush="Orange" BorderThickness="2"/>
+            </Grid>
         </Grid>
 
         <!-- Page Content -->
         <Grid Grid.Row="2" Background="#F8F7F5">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
             <!-- This part for the books -->
-            <Grid Grid.Row="0">
-                <!-- binds the ItemsControl Panel to the Books in the MainViewModel, 
-                meaning you could access any of the properties related to the Books 
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <!-- binds the ItemsControl Panel to the Books in the MainViewModel,
+                meaning you could access any of the properties related to the Books
                 in a {Binding [insertProperty]} format. -->
-                <ItemsControl ItemsSource="{Binding Books}" Margin="20,0,20,5" HorizontalAlignment="Center">
-                    <!-- items panel defines the placement of anything put inside it -->
+                <ItemsControl ItemsSource="{Binding Books}" Margin="20,0,20,5" MaxWidth="1600" MinWidth="750">
+                    <!-- Items panel defines the placement of anything put inside it -->
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <!-- Stack Items Horizontally -->
-                            <StackPanel Orientation = "Horizontal"/>
+                            <!-- Arrange items in a grid with 5 columns -->
+                            <UniformGrid Columns="5" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                        <!-- Define how each individual item would be presented -->
-                            <Image Source="{Binding CoverImage}" MinHeight="150" MinWidth="100" Width="Auto" Height="Auto" Margin="15" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}"/>
+                            <!-- Define how each individual item would be presented -->
+                            <Border Width="Auto" Height="Auto" MaxHeight="300" MaxWidth="200" Margin="10">
+                                <Image Source="{Binding CoverImage}" Stretch="UniformToFill" HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}" />
+                            </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
-            </Grid>
-            <!-- This part for the reviews  -->
-            <Grid Grid.Row="1">
-
-            </Grid>
+            </ScrollViewer>
         </Grid>
-        
+
         <!-- Footer -->
         <Grid Grid.Row="3">
             <userControl:loginFooters/>

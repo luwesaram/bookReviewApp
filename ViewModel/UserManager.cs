@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using bookReviewConsoleApplication.Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,15 +118,26 @@ namespace bookReviewConsoleApplication.ViewModel
         }
 
         // Login Methods
-        private bool isValidLogin(string username, string password)
+        private User? IsValidLogin(string username, string password)
         {
-            object Result = null;
+            User? user = null;
 
             try
             {
-                string sql = "SELECT username FROM user WHERE username = '" + username + "' AND Password = '" + password + "'";
+                string sql = "SELECT id, username FROM user WHERE username = '" + username + "' AND Password = '" + password + "'";
                 MySqlCommand Statement = new MySqlCommand(sql, Conn.GetConnection());
-                Result = Statement.ExecuteScalar();
+
+                using (MySqlDataReader reader = Statement.ExecuteReader())
+                {
+                    if(reader.Read())
+                    {
+                        user = new User
+                        {
+                            Id = reader.GetInt32("id"),
+                            Username = reader.GetString("username")
+                        };  
+                    }
+                }
 
                 Conn.CloseConnection();
             }
@@ -134,7 +146,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 MessageBox.Show("Error: " + Error, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            return Result != null;
+            return user;
         }
 
         private void LoginUser(string username, string password, Window currentWindow)
@@ -152,11 +164,13 @@ namespace bookReviewConsoleApplication.ViewModel
                     return;
                 }
 
-                if (isValidLogin(username, password))
+                User? user = IsValidLogin(username, password); 
+
+                if (user != null)
                 {
                     MessageBox.Show("Login Successfully", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                     // insert code to redirect to main
-                    UserPage userPage = new UserPage();
+                    UserPage userPage = new UserPage(user);
                     userPage.Show();
                     currentWindow.Close();
                 }
