@@ -22,7 +22,7 @@ namespace bookReviewConsoleApplication
             LoginViewModel loginModel = new LoginViewModel(username,password,this);
         }
 
-        private void lblCreateAccDoubleClick(object sender, MouseButtonEventArgs e)
+        private void btnCreateNow_Click(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Show();
