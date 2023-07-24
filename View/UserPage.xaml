@@ -27,9 +27,7 @@
                 <ColumnDefinition Width="0.05*"/>
             </Grid.ColumnDefinitions>
             <Rectangle Grid.ColumnSpan="3" Fill="#FF252422"/>
-            <Label Name="lblHeader" Grid.Column="1" FontFamily="Consolas" Content="NovelNotes" FontSize="30" FontWeight="Bold" 
-                   Foreground="#EB5E28" HorizontalAlignment="Left" VerticalAlignment="Center" 
-            />
+            <Label Name="lblHeader" Grid.Column="1" FontFamily="Consolas" Content="NovelNotes" FontSize="30" FontWeight="Bold" Foreground="#EB5E28" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <!-- Middle Column -->
             <Grid Grid.Column="1" MinWidth="725">
@@ -86,14 +84,14 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <TextBox Name="txtBxSearch" Height="20" Background="#F8F7F5" FontFamily="Consolas" Margin="5,0,5,0" Padding="5,2,5,2" />
-                    <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,0,10,0"/>
+                    <TextBox Name="txtBxSearch" Height="25" Background="#F8F7F5" FontFamily="Consolas" Margin="5,9,5,1" Padding="5,2,5,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="17" FontWeight="Medium"/>
+                    <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,4,10,-4"/>
                 </Grid>
             </Grid>
             <!-- Column 2 -->
             <Grid Grid.Row="1" Grid.Column="1">
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Featured Books" Margin="5,0,0,0" FontSize="15" FontFamily="Consolas"/>
-                <Border Width="120" Margin="5,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Left" BorderBrush="Orange" BorderThickness="2"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Featured Books" Margin="9,0,0,0" FontSize="18" FontWeight="Bold" FontFamily="Consolas" Width="141"/>
+                <Border Width="137" Margin="9,0,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left" BorderBrush="#EB5E28" BorderThickness="2"/>
             </Grid>
         </Grid>
 
@@ -104,7 +102,7 @@
                 <!-- binds the ItemsControl Panel to the Books in the MainViewModel,
                 meaning you could access any of the properties related to the Books
                 in a {Binding [insertProperty]} format. -->
-                <ItemsControl ItemsSource="{Binding Books}" Margin="20,0,20,5" MaxWidth="1600" MinWidth="750">
+                <ItemsControl ItemsSource="{Binding Books}" Margin="20,0,20,5" MaxWidth="1600" MinWidth="750" Width="1074">
                     <!-- Items panel defines the placement of anything put inside it -->
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
