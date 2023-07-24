@@ -10,7 +10,7 @@
         MinHeight="600" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
         xmlns:viewmodel="clr-namespace:bookReviewConsoleApplication.ViewModel">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".25*"/>
@@ -18,7 +18,7 @@
             <RowDefinition/>
             <RowDefinition Height=".1*"/>
         </Grid.RowDefinitions>
-        
+
         <!-- Header -->
         <Grid Grid.Row="0" MinHeight="100">
             <Grid.ColumnDefinitions>
@@ -30,31 +30,39 @@
             <Label Name="lblHeader" Grid.Column="1" FontFamily="Consolas" Content="NovelNotes" FontSize="30" FontWeight="Bold" 
                    Foreground="#EB5E28" HorizontalAlignment="Left" VerticalAlignment="Center" 
             />
-            
+
             <!-- Middle Column -->
             <Grid Grid.Column="1" MinWidth="725">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="0.3*"/>
-                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Username -->
                 <Grid Grid.Column="1">
-                    <Label Name="lblUserName" Content="Hi,(UserName)!" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="15" Margin="0,0,20,0" HorizontalAlignment="Left"/>
+                    <Label Name="lblUserName" Content="Hi, user!" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="17" HorizontalAlignment="Center"/>
                 </Grid>
 
                 <!-- Settings -->
                 <Grid Grid.Column="2">
-                    <Image Source="/assets/settingsIconWhite.png" Width="20" HorizontalAlignment="Left"/>
-                    <Label Content="Settings" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="15" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                    <Image Source="/assets/settingsIconWhite.png" Width="20" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                    <Label Name="lblSettings" Content="Settings" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="17" HorizontalAlignment="Left" Margin="50,0,0,0"/>
                 </Grid>
 
                 <!-- Logout -->
                 <Grid Grid.Column="3">
-                    <Image Source="/assets/logOutIcon.png" Width="20" HorizontalAlignment="Left"/>
-                    <Label Content="Logout" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="15" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                    <Image Source="/assets/logOutIcon.png" Width="20" HorizontalAlignment="Left" Margin="31,0,0,0"/>
+                    <Button x:Name="btnLogout" Content="Logout" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="17" Margin="56,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" Click="btnLogout_Click" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
@@ -70,7 +78,7 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
-            
+
             <!--Column 1-->
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
