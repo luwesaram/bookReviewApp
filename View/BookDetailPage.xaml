@@ -118,13 +118,47 @@
                 </Grid>
                 
                 <!--Description-->
-                <Grid Grid.Column="1">
-                    <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Bold" Margin="20,40,0,0"/>
-                    <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="20,66,0,0"/>
-                    <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="13" Margin="25,100,0,0" 
-                               LineStackingStrategy="BlockLineHeight"  LineHeight="15" TextWrapping="Wrap"/>
-                    <Label Content="{Binding Book.Genre}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="20,66,0,0"/>
-                </Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Margin="20,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    
+                        <!-- Descripption Portion -->
+                        <StackPanel Grid.Row="0">
+                            <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Bold" Margin="0,40,0,0"/>
+                            <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="0,3,0,0"/>
+                            <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="13" Margin="0,24,0,0" 
+                                       LineStackingStrategy="BlockLineHeight"  LineHeight="15" TextWrapping="Wrap"/>
+                            <Label Content="{Binding Book.Genre.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="15" FontWeight="Light" Margin="0,24,0,0"/>
+                        </StackPanel>
+                    
+                        <!-- Insert Review Stats in Here -->
+                        <Grid Grid.Row="1">
+                            
+                        </Grid>
+                        
+                        <!-- Reviews -->
+                        <ItemsControl ItemsSource="{Binding Reviews}" Grid.Row="2">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Should work except we dont have descriptions yet -->
+                                    <Label Content="{Binding Description}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>    
+                    
+                    </Grid>
+                </ScrollViewer>
+
+                
             </Grid>
         </Grid>
 
