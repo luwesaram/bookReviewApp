@@ -43,7 +43,7 @@ namespace bookReviewConsoleApplication.ViewModel
             reviewManager = new ReviewManager(connection);
             Reviews = new ObservableCollection<Review>();
             IsAlreadyReviewed = reviewManager.IsReviewed(book);
-            Console.WriteLine("IsAlreadyReviewed " + IsAlreadyReviewed);
+
             LoadReviewsAsync();
         }
 

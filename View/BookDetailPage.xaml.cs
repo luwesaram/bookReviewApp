@@ -1,7 +1,9 @@
 ﻿using bookReviewConsoleApplication.Model;
 using bookReviewConsoleApplication.ViewModel;
+using System;
+using System.Globalization;
 using System.Windows;
-
+using System.Windows.Data;
 
 namespace bookReviewConsoleApplication.View
 {
@@ -22,6 +24,17 @@ namespace bookReviewConsoleApplication.View
             
             DataContext = viewModel;
             lblUserName.Content = "Hi " + currentUser.Username;
+
+            if (viewModel.IsAlreadyReviewed)
+            {
+                MessageBox.Show("Already Reviewed", "Status", MessageBoxButton.OK);
+                BtnCreate.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MessageBox.Show("Not Reviewed", "Status", MessageBoxButton.OK);
+                BtnCreate.Visibility = Visibility.Visible;
+            }
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
