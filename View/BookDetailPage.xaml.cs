@@ -9,7 +9,7 @@ namespace bookReviewConsoleApplication.View
     /// </summary>
     public partial class BookDetailPage : Window
     {
-        private readonly ReviewDetailViewModel viewModel;
+        private readonly BookDetailViewModel viewModel;
         private Book currentBook;
 
         public BookDetailPage(Book book)
@@ -17,11 +17,11 @@ namespace bookReviewConsoleApplication.View
             InitializeComponent();
             User currentUser = CurrentUserManager.Instance.CurrentUser;
 
-            viewModel = new ReviewDetailViewModel(book);
+            viewModel = new BookDetailViewModel(book);
             currentBook = book;
 
             DataContext = viewModel;
-            lblUserName.Content = "Hi " + currentUser.Username;
+            lblUserName.Content = "Hi, " + currentUser.Username;
 
             if (viewModel.IsAlreadyReviewed)
             {

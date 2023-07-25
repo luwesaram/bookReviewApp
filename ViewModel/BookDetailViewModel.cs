@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace bookReviewConsoleApplication.ViewModel
 {
-    public class ReviewDetailViewModel : INotifyPropertyChanged
+    public class BookDetailViewModel : INotifyPropertyChanged
     {
         private readonly Connection connection;
         private readonly ReviewManager reviewManager;
@@ -119,19 +119,19 @@ namespace bookReviewConsoleApplication.ViewModel
             }
         }
 
-        public ReviewDetailViewModel(Book book)
+        public BookDetailViewModel(Book book)
         {
             Book = book;
             connection = new Connection();
             reviewManager = new ReviewManager(connection);
             Reviews = new ObservableCollection<Review>();
             IsAlreadyReviewed = reviewManager.IsReviewed(book);
-            OneStarCount = reviewManager.OneStar(book);
-            TwoStarCount = reviewManager.TwoStar(book);
-            ThreeStarCount = reviewManager.ThreeStar(book);
-            FourStarCount = reviewManager.FourStar(book);
-            FiveStarCount = reviewManager.FiveStar(book);
-            AllStarCount = reviewManager.AllStar(book);
+            OneStarCount = reviewManager.GetStar(book, 1);
+            TwoStarCount = reviewManager.GetStar(book, 2);
+            ThreeStarCount = reviewManager.GetStar(book, 3);
+            FourStarCount = reviewManager.GetStar(book, 4);
+            FiveStarCount = reviewManager.GetStar(book, 5);
+            AllStarCount = reviewManager.GetStar(book);
             Console.WriteLine("IsAlreadyReviewed " + IsAlreadyReviewed);
             LoadReviewsAsync();
         }
@@ -147,15 +147,6 @@ namespace bookReviewConsoleApplication.ViewModel
                     Reviews.Add(review);
                 }
             }
-        }
-
-        public void ReviewCount(Book book)
-        {
-            OneStarCount = reviewManager.OneStar(book);
-            TwoStarCount = reviewManager.TwoStar(book);
-            ThreeStarCount = reviewManager.ThreeStar(book);
-            FourStarCount = reviewManager.FourStar(book);
-            FiveStarCount = reviewManager.FiveStar(book);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

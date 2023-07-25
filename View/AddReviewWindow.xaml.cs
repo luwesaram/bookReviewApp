@@ -26,7 +26,7 @@ namespace bookReviewConsoleApplication.View
             viewModel = new ReviewViewModel(book);
             DataContext = viewModel;
 
-            lblUserName.Content = "Hi " + user.Username;
+            lblUserName.Content = "Hi, " + user.Username;
             SelectedRating = 5;
         }
 
