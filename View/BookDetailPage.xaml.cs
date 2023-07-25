@@ -12,6 +12,7 @@ namespace bookReviewConsoleApplication.View
     {
         private readonly BookDetailViewModel viewModel;
         private Book currentBook;
+
         public BookDetailPage(Book book)
         {
             InitializeComponent();

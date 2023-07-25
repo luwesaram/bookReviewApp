@@ -201,33 +201,50 @@
 
                             <!-- Insert Review Stats in Here -->
                             <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
                                 <Label Content="Review Section" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="20" FontWeight="Bold" Margin="0,15,0,0" />
-                                <Border Width="Auto" BorderBrush="#AEAEAE" Margin="5,45,5,0" BorderThickness="0  1 0 0" />    
-                                <ItemsControl ItemsSource="{Binding Reviews}" Grid.Row="1" Margin="5,45,5,20">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,10,0,0">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
+                                <Border Width="Auto" BorderBrush="#AEAEAE" Margin="5,45,5,0" BorderThickness="0 1 0 0"/>
+                                <Grid Grid.Row="0" Margin="5,60,5,0">
+                                    <StackPanel>
+                                        <ProgressBar Value="{Binding OneStarCount}" Minimum="0" Maximum="{Binding AllStarCount}" />
+                                        <ProgressBar Value="{Binding TwoStarCount}" Minimum="0" Maximum="{Binding AllStarCount}" />
+                                        <ProgressBar Value="{Binding ThreeStarCount}" Minimum="0" Maximum="{Binding AllStarCount}" />
+                                        <ProgressBar Value="{Binding FourStarCount}" Minimum="0" Maximum="{Binding AllStarCount}" />
+                                        <ProgressBar Value="{Binding FiveStarCount}" Minimum="0" Maximum="{Binding AllStarCount}" />
+                                    </StackPanel>
+                                </Grid>
+                                
+                                <Grid Grid.Row="1">
+                                    <ItemsControl ItemsSource="{Binding Reviews}" Margin="5,105,5,20">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,10,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
 
-                                                <!-- Display Name -->
-                                                <TextBlock Grid.Row="0" Text="Review by"/>
-                                                <TextBlock Grid.Row="0" Text="{Binding User.Username}" Margin="57,0,0,0" FontWeight="Bold"/>
+                                                    <!-- Display Name -->
+                                                    <TextBlock Grid.Row="0" Text="Review by"/>
+                                                    <TextBlock Grid.Row="0" Text="{Binding User.Username}" Margin="57,0,0,0" FontWeight="Bold"/>
 
-                                                <!-- Display Review Description -->
-                                                <TextBlock Grid.Row="0" Text="Rating: " HorizontalAlignment="Center"/>
-                                                <TextBlock Grid.Row="0" Text="{Binding Rating}" HorizontalAlignment="Center" Margin="50,0,0,0"/>
-                                                <TextBlock Grid.Row="0" Text="{Binding ReviewDate}" HorizontalAlignment="Right"/>
+                                                    <!-- Display Review Description -->
+                                                    <TextBlock Grid.Row="0" Text="Rating: " HorizontalAlignment="Center"/>
+                                                    <TextBlock Grid.Row="0" Text="{Binding Rating}" HorizontalAlignment="Center" Margin="50,0,0,0"/>
+                                                    <TextBlock Grid.Row="0" Text="{Binding ReviewDate}" HorizontalAlignment="Right"/>
 
-                                                <!-- Display Review Rating -->
-                                                <TextBlock  Grid.Row="1" Text="{Binding Description}" Margin="0,5,0,0" TextWrapping="Wrap"/>
-                                                <Border Grid.Row="1" VerticalAlignment="Bottom" Width="Auto" BorderBrush="#AEAEAE" Margin="0,30,0,0" BorderThickness="0.5"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                                    <!-- Display Review Rating -->
+                                                    <TextBlock  Grid.Row="1" Text="{Binding Description}" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                                                    <Border Grid.Row="1" VerticalAlignment="Bottom" Width="Auto" BorderBrush="#AEAEAE" Margin="0,30,0,0" BorderThickness="0.5"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                                
                             </Grid>
                         </Grid>
                     </ScrollViewer>
