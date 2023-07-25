@@ -203,7 +203,7 @@
                                 <Grid Grid.Row="0" Margin="5,60,5,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="220"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
@@ -223,6 +223,11 @@
                                     <ProgressBar Grid.Column="1" Grid.Row="2" Height="10" Width="200" HorizontalAlignment="Left" Value="{Binding ThreeStarCount}" Minimum="0" Maximum="{Binding AllStarCount}"/>
                                     <ProgressBar Grid.Column="1" Grid.Row="3" Height="10" Width="200" HorizontalAlignment="Left" Value="{Binding TwoStarCount}" Minimum="0" Maximum="{Binding AllStarCount}"/>
                                     <ProgressBar Grid.Column="1" Grid.Row="4" Height="10" Width="200" HorizontalAlignment="Left" Value="{Binding OneStarCount}" Minimum="0" Maximum="{Binding AllStarCount}"/>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="{Binding FiveStarCount}" HorizontalAlignment="Right" FontSize="12" FontFamily="Consolas"/>
+                                    <Label Grid.Column="1" Grid.Row="1" Content="{Binding FourStarCount}" HorizontalAlignment="Right" FontSize="12" FontFamily="Consolas"/>
+                                    <Label Grid.Column="1" Grid.Row="2" Content="{Binding ThreeStarCount}" HorizontalAlignment="Right" FontSize="12" FontFamily="Consolas"/>
+                                    <Label Grid.Column="1" Grid.Row="3" Content="{Binding TwoStarCount}" HorizontalAlignment="Right" FontSize="12" FontFamily="Consolas"/>
+                                    <Label Grid.Column="1" Grid.Row="4" Content="{Binding OneStarCount}" HorizontalAlignment="Right" FontSize="12" FontFamily="Consolas"/>
                                 </Grid>
                                 
                                 <Grid Grid.Row="1" Margin="5,10,5,0">
