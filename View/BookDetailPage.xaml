@@ -73,9 +73,6 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width=".05*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height=".05*"/>
-                </Grid.RowDefinitions>
 
                 <!--Column 1-->
                 <Grid Grid.Column="1">
@@ -84,8 +81,8 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox Name="txtBxSearch" Background="#F8F7F5" FontFamily="Consolas" Margin="6,7,4,7" Padding="5,2,5,2" FontSize="16"/>
-                        <Image Source="/assets/searchIcon.png" HorizontalAlignment="Left" Width="15" Margin="335,0,0,0"/>
+                        <TextBox Name="txtBxSearch" Height="25" Background="#F8F7F5" FontFamily="Consolas" Margin="5,9,5,1" Padding="5,2,5,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="17" FontWeight="Medium"/>
+                        <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,4,10,-4"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -198,25 +195,36 @@
                             <StackPanel Grid.Row="0">
                                 <Label Content="{Binding Book.Title}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="30" FontWeight="Bold" Margin="0,40,0,0" />
                                 <Label Content="{Binding Book.Author.PenName}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="18" FontWeight="Light" Foreground="#838383"/>
-                                <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="15" Foreground="#1D1D1D"  Margin="7,24,0,0" 
-                                       LineStackingStrategy="BlockLineHeight"  LineHeight="20" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Book.Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="15" Foreground="#1D1D1D"  Margin="5,24,0,0" 
+                                           LineStackingStrategy="BlockLineHeight"  LineHeight="20" TextWrapping="Wrap"/>
                             </StackPanel>
 
                             <!-- Insert Review Stats in Here -->
                             <Grid Grid.Row="1">
-                                <Label Content="Review Section" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="20" FontWeight="Bold" Margin="0,15,0,0"/>
-                                
-                                <ItemsControl ItemsSource="{Binding Reviews}" Grid.Row="1">
-                                    
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
+                                <Label Content="Review Section" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="20" FontWeight="Bold" Margin="0,15,0,0" />
+                                <Border Width="Auto" BorderBrush="#AEAEAE" Margin="5,45,5,0" BorderThickness="0  1 0 0" />    
+                                <ItemsControl ItemsSource="{Binding Reviews}" Grid.Row="1" Margin="5,45,5,20">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <!-- Should work except we dont have descriptions yet -->
-                                            <Label Content="{Binding Description}" />
+                                            <Grid Margin="0,10,0,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!-- Display Name -->
+                                                <TextBlock Grid.Row="0" Text="Review by"/>
+                                                <TextBlock Grid.Row="0" Text="{Binding User.Username}" Margin="57,0,0,0" FontWeight="Bold"/>
+
+                                                <!-- Display Review Description -->
+                                                <TextBlock Grid.Row="0" Text="Rating: " HorizontalAlignment="Center"/>
+                                                <TextBlock Grid.Row="0" Text="{Binding Rating}" HorizontalAlignment="Center" Margin="50,0,0,0"/>
+                                                <TextBlock Grid.Row="0" Text="{Binding ReviewDate}" HorizontalAlignment="Right"/>
+
+                                                <!-- Display Review Rating -->
+                                                <TextBlock  Grid.Row="1" Text="{Binding Description}" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                                                <Border Grid.Row="1" VerticalAlignment="Bottom" Width="Auto" BorderBrush="#AEAEAE" Margin="0,30,0,0" BorderThickness="0.5"/>
+                                            </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

@@ -90,7 +90,6 @@ namespace bookReviewConsoleApplication.ViewModel
         public void AddReview(string description, Book book)
         {
             User user = CurrentUserManager.Instance.CurrentUser;
-            MessageBox.Show("Im here", "Nice", MessageBoxButton.OK);
             try
             {
                 if(!Conn.OpenConnection())
