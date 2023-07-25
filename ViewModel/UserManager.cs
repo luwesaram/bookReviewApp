@@ -36,9 +36,10 @@ namespace bookReviewConsoleApplication.ViewModel
                     return false;
                 }
 
-                string sql = $"SELECT * FROM author WHERE author.user_id = {user.Id}";
+                string sql = "SELECT COUNT(*) FROM author WHERE author.user_id = @UserId";
                 using MySqlCommand command = new(sql,Conn.GetConnection());
-                count = command.ExecuteNonQuery();
+                command.Parameters.AddWithValue("@UserId", user.Id);
+                count = Convert.ToInt32(command.ExecuteScalar());
             }
             catch (MySqlException ex)
             {
@@ -49,6 +50,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 Conn.CloseConnection();
             }
 
+            MessageBox.Show(" " + user.Id + " " + count, "Status", MessageBoxButton.OK);
             return count > 0;
         }
         // Register Methods

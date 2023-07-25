@@ -39,12 +39,20 @@ namespace bookReviewConsoleApplication.UserControls
         public UserHeaders()
         {
             InitializeComponent();
+            this.DataContext = this;
             User currentUser = CurrentUserManager.Instance.CurrentUser;
             Connection Conn = new();
             UserManager userManager = new();
 
             lblUserName.Content = "Hello " + currentUser.Username;
-            Upload = userManager.IsAuthor() ? "Hello Author" : "Hello User";
+            Upload = userManager.IsAuthor() ? "Upload A Book" : "Become an Author";
+        }
+        public void UpdateUploadText()
+        {
+            User currentUser = CurrentUserManager.Instance.CurrentUser;
+            UserManager userManager = new();
+
+            Upload = currentUser != null && userManager.IsAuthor() ? "Upload A Book" : "Become an Author";
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
@@ -64,6 +72,8 @@ namespace bookReviewConsoleApplication.UserControls
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
                 currentWindow.Close();
+
+                UpdateUploadText();
             }
         }
 
