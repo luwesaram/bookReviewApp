@@ -94,6 +94,20 @@ namespace bookReviewConsoleApplication.ViewModel
             }
         }
 
+        private int allStarCount;
+        public int AllStarCount
+        {
+            get { return allStarCount; }
+            set
+            {
+                if (allStarCount != value)
+                {
+                    allStarCount = value;
+                    OnPropertyChanged(nameof(AllStarCount));
+                }
+            }
+        }
+
         private ObservableCollection<Review> _reviews;
 
         public ObservableCollection<Review> Reviews
@@ -118,6 +132,7 @@ namespace bookReviewConsoleApplication.ViewModel
             ThreeStarCount = reviewManager.ThreeStar(book);
             FourStarCount = reviewManager.FourStar(book);
             FiveStarCount = reviewManager.FiveStar(book);
+            AllStarCount = reviewManager.AllStar(book);
             Console.WriteLine("IsAlreadyReviewed " + IsAlreadyReviewed);
             LoadReviewsAsync();
         }
