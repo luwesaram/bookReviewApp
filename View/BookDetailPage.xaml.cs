@@ -15,13 +15,11 @@ namespace bookReviewConsoleApplication.View
         public BookDetailPage(Book book)
         {
             InitializeComponent();
-            User currentUser = CurrentUserManager.Instance.CurrentUser;
 
             viewModel = new BookDetailViewModel(book);
             currentBook = book;
 
             DataContext = viewModel;
-            lblUserName.Content = "Hi, " + currentUser.Username;
 
             if (viewModel.IsAlreadyReviewed)
             {
@@ -45,21 +43,6 @@ namespace bookReviewConsoleApplication.View
             AddReviewWindow addReview = new AddReviewWindow(currentBook);
             addReview.Show();
             this.Close();
-        }
-
-        private void btnLogout_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to logout?", "Logout Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                CurrentUserManager.Instance.CurrentUser = null;
-                var currentWindow = Window.GetWindow(this);
-
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-                currentWindow.Close();
-            }
         }
 
     }
