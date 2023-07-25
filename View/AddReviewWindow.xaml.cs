@@ -24,7 +24,8 @@ namespace bookReviewConsoleApplication.View
             viewModel = new ReviewViewModel(book);
             DataContext = viewModel;
 
-            lblUserName.Content = "Hi " + user.Username;
+            lblUserName.Content = "Hi, " + user.Username;
+            SelectedRating = 5;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
