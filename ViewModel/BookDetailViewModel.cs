@@ -9,6 +9,7 @@ namespace bookReviewConsoleApplication.ViewModel
     {
         private readonly Connection connection;
         private readonly ReviewManager reviewManager;
+        public bool IsAlreadyReviewed;
 
         private Book _book;
 
@@ -40,12 +41,13 @@ namespace bookReviewConsoleApplication.ViewModel
             connection = new Connection();
             reviewManager = new ReviewManager(connection);
             Reviews = new ObservableCollection<Review>();
+            IsAlreadyReviewed = reviewManager.IsReviewed(book);
             LoadReviewsAsync();
         }
 
         private async void LoadReviewsAsync()
         {
-            var recentReviews = await reviewManager.GetMostRecentReviews(3);
+            var recentReviews = await reviewManager.GetAllReviews(Book);
 
             if (recentReviews != null)
             {

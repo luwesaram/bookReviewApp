@@ -1,4 +1,5 @@
-﻿using bookReviewConsoleApplication.Model;
+﻿using bookReviewConsoleApplication.Entities.Interface;
+using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace bookReviewConsoleApplication.ViewModel
             this.Conn = conn;
         }
 
-        public async Task<ObservableCollection<Review>> GetMostRecentReviews(int count)
+        public async Task<ObservableCollection<Review>> GetAllReviews(Book book)
         {
             ObservableCollection<Review> reviews = new();
 
@@ -37,38 +38,36 @@ namespace bookReviewConsoleApplication.ViewModel
                     return reviews;
                 }
 
-                string sql = "SELECT u.username, b.title, r.description, r.rating, r.id, r.review_date " +
+                /*
+                SELECT r.id, r.description, r.rating, r.review_date, u.username
+                FROM review r
+                JOIN user u ON r.user_id = u.id
+                WHERE r.book_id = 9780525555377
+                */
+
+                string sql = "SELECT u.username, r.description, r.rating, r.id, r.review_date " +
                             "FROM review r " +
                             "JOIN user u ON r.user_id = u.id " +
-                            "JOIN book b ON r.book_id = b.id " +
-                            "LIMIT @count";
+                            "WHERE r.book_id = @BookId ";
 
-                    using (MySqlCommand command = new(sql, Conn.GetConnection()))
+                using (MySqlCommand command = new(sql, Conn.GetConnection()))
                 {
-                    command.Parameters.AddWithValue("@count", count);
+                    command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (await reader.ReadAsync())
                         {
-                            Book book = new()
-                            {
-                                Title = reader.GetString("title")
-                            };
-
-                            User user = new()
-                            {
-                                Username = reader.GetString("username")
-                            };
-
-                            Review review = new()
+                            Review review = new Review
                             {
                                 Id = reader.GetInt32("id"),
-                                ReviewDate = reader.GetDateTime("review_date"),
                                 Description = reader.GetString("description"),
                                 Rating = reader.GetInt32("rating"),
-                                Book = book,
-                                User = user
+                                ReviewDate = reader.GetDateTime("review_date"),
+                                User = new User
+                                {
+                                    Username = reader.GetString("username")
+                                }
                             };
 
                             reviews.Add(review);
@@ -127,6 +126,40 @@ namespace bookReviewConsoleApplication.ViewModel
             {
                 Conn.CloseConnection();
             }
+        }
+
+        public bool IsReviewed(Book book)
+        {
+            User user = CurrentUserManager.Instance.CurrentUser;
+
+            try
+            {
+                if(!Conn.OpenConnection())
+                {
+                    MessageBox.Show("Unable to connect to the database.", "Error");
+                    return false;
+                }
+
+                string sql = "SELECT * FROM review, user, book WHERE user.id = review.user_id AND book.id = review.book_id";
+                MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            { 
+                Conn.CloseConnection(); 
+            } 
+
+            return false;
         }
     }
 }
