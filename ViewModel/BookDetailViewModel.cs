@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using bookReviewConsoleApplication.Model;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using bookReviewConsoleApplication.Model;
 using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace bookReviewConsoleApplication.ViewModel
 {
-    public class BookDetailViewModel : INotifyPropertyChanged
+    public class ReviewDetailViewModel : INotifyPropertyChanged
     {
         private readonly Connection connection;
         private readonly ReviewManager reviewManager;
@@ -120,7 +119,7 @@ namespace bookReviewConsoleApplication.ViewModel
             }
         }
 
-        public BookDetailViewModel(Book book)
+        public ReviewDetailViewModel(Book book)
         {
             Book = book;
             connection = new Connection();

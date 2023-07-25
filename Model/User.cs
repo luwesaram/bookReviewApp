@@ -1,9 +1,4 @@
 ﻿using bookReviewConsoleApplication.Entities.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace bookReviewConsoleApplication.Model
 {
@@ -17,7 +12,7 @@ namespace bookReviewConsoleApplication.Model
         {
             this.Username = username;
         }
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;

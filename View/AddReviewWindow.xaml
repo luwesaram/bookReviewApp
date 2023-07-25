@@ -131,6 +131,11 @@
                        Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <Label Content="{Binding Book.Author.PenName}" FontFamily="Fira Code" FontSize="15" FontWeight="Light" HorizontalAlignment="Left" 
                        VerticalAlignment="Top" Margin="10,40,0,0"/>
+                    <StackPanel Margin="15,10,15,0">
+                        <TextBlock Text="Rating:" FontSize="16" />
+                        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" />
+                    </StackPanel>
+
                     <TextBox Name="TxtBxReview" Height="Auto" MinHeight="250" VerticalAlignment="Top" Margin="15,70,15,0" 
                              FontFamily="Consolas" Background="#EEEEEE" VerticalContentAlignment="Top" TextWrapping="Wrap" AcceptsReturn="True"
                              FontSize="18"/>

@@ -1,10 +1,6 @@
 ﻿using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace bookReviewConsoleApplication.ViewModel
@@ -12,10 +8,10 @@ namespace bookReviewConsoleApplication.ViewModel
     public class UserManager
     {
         private Connection Conn = new Connection();
-        
+
         public UserManager(string username, string password, Window mainWindow)
         {
-            LoginUser(username, password, mainWindow);  
+            LoginUser(username, password, mainWindow);
         }
 
         public UserManager(string username, string email, string password, string confirm, Window mainWindow)
@@ -74,7 +70,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 Conn.CloseConnection();
             }
         }
-        
+
         //check if username/email already exists when an account is registered
         public bool UserExists(string username, string email)
         {
@@ -129,13 +125,13 @@ namespace bookReviewConsoleApplication.ViewModel
 
                 using (MySqlDataReader reader = Statement.ExecuteReader())
                 {
-                    if(reader.Read())
+                    if (reader.Read())
                     {
                         user = new User
                         {
                             Id = reader.GetInt32("id"),
                             Username = reader.GetString("username")
-                        };  
+                        };
                     }
                 }
 
@@ -164,7 +160,7 @@ namespace bookReviewConsoleApplication.ViewModel
                     return;
                 }
 
-                User? user = IsValidLogin(username, password); 
+                User? user = IsValidLogin(username, password);
 
                 if (user != null)
                 {

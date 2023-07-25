@@ -34,7 +34,7 @@ namespace bookReviewConsoleApplication
                 return false;
             }
         }
-        
+
         public void CloseConnection()
         {
             this.Conn.Close();

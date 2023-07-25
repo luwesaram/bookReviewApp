@@ -14,10 +14,11 @@ namespace bookReviewConsoleApplication.ViewModel
         }
 
 
-        public static CurrentUserManager Instance {
+        public static CurrentUserManager Instance
+        {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new CurrentUserManager();
                 }
@@ -25,9 +26,9 @@ namespace bookReviewConsoleApplication.ViewModel
             }
         }
 
-        private CurrentUserManager() 
+        private CurrentUserManager()
         {
-        
+
         }
     }
 }

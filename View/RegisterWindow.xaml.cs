@@ -1,9 +1,5 @@
 ﻿using bookReviewConsoleApplication.ViewModel;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
-using System;
 using System.Windows;
-using System.Windows.Input;
 
 namespace bookReviewConsoleApplication
 {
@@ -15,7 +11,7 @@ namespace bookReviewConsoleApplication
             InitializeComponent();
         }
 
-        private void btnCreateAcc_Click(object sender, RoutedEventArgs e) 
+        private void btnCreateAcc_Click(object sender, RoutedEventArgs e)
         {
             string username = txtBoxUsername.Text;
             string email = txtBoxEmail.Text;

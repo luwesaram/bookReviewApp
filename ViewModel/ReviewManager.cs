@@ -1,18 +1,9 @@
-﻿using bookReviewConsoleApplication.Entities.Interface;
-using bookReviewConsoleApplication.Model;
+﻿using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace bookReviewConsoleApplication.ViewModel
 {
@@ -38,13 +29,6 @@ namespace bookReviewConsoleApplication.ViewModel
                     MessageBox.Show("Unable to connect to the database.", "Error");
                     return reviews;
                 }
-
-                /*
-                SELECT r.id, r.description, r.rating, r.review_date, u.username
-                FROM review r
-                JOIN user u ON r.user_id = u.id
-                WHERE r.book_id = 9780525555377
-                */
 
                 string sql = "SELECT u.username, r.description, r.rating, r.id, r.review_date " +
                             "FROM review r " +
@@ -84,7 +68,7 @@ namespace bookReviewConsoleApplication.ViewModel
             return reviews;
         }
 
-        public void AddReview(string description, Book book)
+        public void AddReview(string description, int rating, Book book)
         {
             User user = CurrentUserManager.Instance.CurrentUser;
             try
@@ -98,7 +82,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 string sql = "INSERT INTO review (user_id, book_id, description, review_date, rating) VALUES (@UserId, @BookId, @Description, @CreatedAt, @Rating)";
                 MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
                 command.Parameters.AddWithValue("@UserId", user.Id);
-                command.Parameters.AddWithValue("@Rating", 5);
+                command.Parameters.AddWithValue("@Rating", rating);
                 command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
                 command.Parameters.AddWithValue("@Description", description);
                 command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);

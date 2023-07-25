@@ -1,13 +1,8 @@
 using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Crypto.Operators;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -40,16 +35,16 @@ namespace bookReviewConsoleApplication.ViewModel
 
                 string sql = "SELECT b.*, " +
                              "a.pen_name, u.username, " +
-                             "g.name " + 
+                             "g.name " +
                              "FROM book b " +
                              "JOIN author a ON b.author_id = a.id " +
-                             "JOIN genre g ON g.id = b.genre_id " + 
-                             "JOIN user u ON u.id = a.user_id " + 
+                             "JOIN genre g ON g.id = b.genre_id " +
+                             "JOIN user u ON u.id = a.user_id " +
                              "ORDER BY b.publication_date DESC";
 
                 using (MySqlCommand command = new(sql, Conn.GetConnection()))
                 {
-                   // command.Parameters.AddWithValue("@count", count);
+                    // command.Parameters.AddWithValue("@count", count);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -99,10 +94,10 @@ namespace bookReviewConsoleApplication.ViewModel
                             };
 
                             object CoverImageObj = reader["cover_image"];
-                            if(CoverImageObj != null && CoverImageObj != DBNull.Value)
+                            if (CoverImageObj != null && CoverImageObj != DBNull.Value)
                             {
                                 byte[] imageData = (byte[])CoverImageObj;
-                                book.CoverImage = GetImageFromBytes(imageData);                                
+                                book.CoverImage = GetImageFromBytes(imageData);
                             }
 
                             books.Add(book);
