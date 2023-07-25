@@ -6,8 +6,6 @@ namespace bookReviewConsoleApplication
 
     public partial class LoginWindow : Window
     {
-        Connection Conn = new Connection();
-
         public LoginWindow()
         {
             InitializeComponent();
@@ -17,12 +15,12 @@ namespace bookReviewConsoleApplication
         {
             string username = txtBxUsername.Text;
             string password = txtBxPassword.Password;
-            LoginViewModel loginModel = new LoginViewModel(username, password, this);
+            LoginViewModel loginModel = new(username, password, this);
         }
 
         private void btnCreateNow_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow registerWindow = new RegisterWindow();
+            RegisterWindow registerWindow = new();
             registerWindow.Show();
             this.Close();
         }
