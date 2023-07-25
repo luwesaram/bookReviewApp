@@ -142,7 +142,6 @@ namespace bookReviewConsoleApplication.ViewModel
                 command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
 
                 int count = Convert.ToInt32(command.ExecuteScalar());
-                MessageBox.Show(" " + count, "Status", MessageBoxButton.OK);
 
                 return count > 0;
             }

@@ -27,12 +27,10 @@ namespace bookReviewConsoleApplication.View
 
             if (viewModel.IsAlreadyReviewed)
             {
-                MessageBox.Show("Already Reviewed", "Status", MessageBoxButton.OK);
                 BtnCreate.Visibility = Visibility.Collapsed;
             }
             else
             {
-                MessageBox.Show("Not Reviewed", "Status", MessageBoxButton.OK);
                 BtnCreate.Visibility = Visibility.Visible;
             }
         }
