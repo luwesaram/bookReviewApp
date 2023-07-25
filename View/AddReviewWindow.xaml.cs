@@ -1,36 +1,29 @@
 ﻿using bookReviewConsoleApplication.Model;
-using bookReviewConsoleApplication.View;
 using bookReviewConsoleApplication.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace bookReviewConsoleApplication
+namespace bookReviewConsoleApplication.View
 {
-    /// <summary>
-    /// Interaction logic for UserPage.xaml
-    /// </summary>
-    public partial class UserPage : Window
+    public partial class AddReviewWindow : Window
     {
-        public UserPage()
+        private readonly BookDetailViewModel viewModel;
+        private Book currentBook;
+
+        public AddReviewWindow(Book book)
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
             User user = CurrentUserManager.Instance.CurrentUser;
-            lblUserName.Content = "Hi," + user.Username + "!";
+            viewModel = new BookDetailViewModel(book);
+            currentBook = book;
+            DataContext = viewModel;
+            lblUserName.Content = "Hi " + user.Username;
         }
 
-        private void ImgMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            var image = (Image)sender;
-
-            if (image.Tag is Book book)
-            {
-                BookDetailPage bookDetailPage = new BookDetailPage(book);
-                bookDetailPage.Show();
-                this.Close();
-            }
-
+            BookDetailPage bookDetail = new BookDetailPage(currentBook);
+            bookDetail.Show();
+            this.Close();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)

@@ -23,6 +23,7 @@ namespace bookReviewConsoleApplication.View
     public partial class BookDetailPage : Window
     {
         private readonly BookDetailViewModel viewModel;
+        private Book currentBook;
         public BookDetailPage(Book book)
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace bookReviewConsoleApplication.View
             viewModel = new BookDetailViewModel(book);
             DataContext = viewModel;
             lblUserName.Content = "Hi " + currentUser.Username;
+            currentBook = book;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -37,6 +39,28 @@ namespace bookReviewConsoleApplication.View
             UserPage userPage = new UserPage();
             userPage.Show();
             this.Close();
+        }
+
+        private void BtnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            AddReviewWindow addReview = new AddReviewWindow(currentBook);
+            addReview.Show();
+            this.Close();
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to logout?", "Logout Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                CurrentUserManager.Instance.CurrentUser = null;
+                var currentWindow = Window.GetWindow(this);
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                currentWindow.Close();
+            }
         }
 
     }
