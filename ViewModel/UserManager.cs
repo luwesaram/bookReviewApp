@@ -7,7 +7,12 @@ namespace bookReviewConsoleApplication.ViewModel
 {
     public class UserManager
     {
-        private Connection Conn = new Connection();
+        private Connection Conn = new();
+
+        public UserManager()
+        {
+
+        }
 
         public UserManager(string username, string password, Window mainWindow)
         {
@@ -19,6 +24,33 @@ namespace bookReviewConsoleApplication.ViewModel
             RegisterUser(username, email, password, confirm, mainWindow);
         }
 
+        public bool IsAuthor()
+        {
+            int count = 0;
+            User user = CurrentUserManager.Instance.CurrentUser;
+
+            try
+            {
+                if(!Conn.OpenConnection())
+                {
+                    return false;
+                }
+
+                string sql = $"SELECT * FROM author WHERE author.user_id = {user.Id}";
+                using MySqlCommand command = new(sql,Conn.GetConnection());
+                count = command.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Conn.CloseConnection();
+            }
+
+            return count > 0;
+        }
         // Register Methods
         public void RegisterUser(string username, string email, string password, string confirm, Window currentWindow)
         {

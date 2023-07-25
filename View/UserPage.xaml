@@ -21,7 +21,7 @@
 
         <!-- Header -->
         <Grid Grid.Row="0" MinHeight="100">
-            <userControl:UserHeaders/>
+            <userControl:UserHeaders DataContext="{StaticResource UserHeadersInstance}"/>
         </Grid>
 
         <!-- Search Box -->

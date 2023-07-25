@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:bookReviewConsoleApplication.UserControls"
+             xmlns:local="clr-namespace:bookReviewConsoleApplication.UserControls" d:DataContext="{d:DesignInstance Type=local:UserHeaders}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -32,8 +32,16 @@
 
             <!-- Settings -->
             <Grid Grid.Column="2">
-                <Image Source="/assets/settingsIconWhite.png" Width="20" HorizontalAlignment="Left" Margin="25,0,0,0"/>
-                <Label Name="lblSettings" Content="Settings" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontFamily="Consolas" FontSize="17" HorizontalAlignment="Left" Margin="50,0,0,0"/>
+                <Button x:Name="btnUpload" Content="{Binding Upload}" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="17" 
+                        Margin="56,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" Click="btnUpload_Click" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
 
             <!-- Logout -->

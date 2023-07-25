@@ -2,7 +2,9 @@
 using bookReviewConsoleApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,13 +22,34 @@ namespace bookReviewConsoleApplication.UserControls
     /// <summary>
     /// Interaction logic for UserHeaders.xaml
     /// </summary>
-    public partial class UserHeaders : UserControl
+    public partial class UserHeaders : UserControl, INotifyPropertyChanged
     {
+        private string _upload;
+
+        public string Upload
+        {
+            get { return _upload; }
+            set
+            {
+                _upload = value;
+                OnPropertyChanged(nameof(Upload));
+            }
+        }
+
         public UserHeaders()
         {
             InitializeComponent();
             User currentUser = CurrentUserManager.Instance.CurrentUser;
-            lblUserName.Content = "Hi, " + currentUser.Username;
+            Connection Conn = new();
+            UserManager userManager = new();
+
+            lblUserName.Content = "Hello " + currentUser.Username;
+            Upload = userManager.IsAuthor() ? "Hello Author" : "Hello User";
+        }
+
+        private void btnUpload_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -42,6 +65,12 @@ namespace bookReviewConsoleApplication.UserControls
                 mainWindow.Show();
                 currentWindow.Close();
             }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
