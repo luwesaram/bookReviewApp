@@ -22,7 +22,6 @@ namespace bookReviewConsoleApplication.View
             
             viewModel = new ReviewViewModel(book);
             DataContext = viewModel;
-            SelectedRating = 5;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -46,21 +45,6 @@ namespace bookReviewConsoleApplication.View
             else
             {
                 MessageBox.Show("Fields must not be empty", "Empty Fields", MessageBoxButton.OK);
-            }
-        }
-
-        private void btnLogout_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to logout?", "Logout Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                CurrentUserManager.Instance.CurrentUser = null;
-                var currentWindow = Window.GetWindow(this);
-
-                MainWindow mainWindow = new();
-                mainWindow.Show();
-                currentWindow.Close();
             }
         }
     }

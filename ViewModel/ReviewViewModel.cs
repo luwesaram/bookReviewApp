@@ -35,6 +35,5 @@ namespace bookReviewConsoleApplication.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
     }
 }
