@@ -137,7 +137,8 @@
                 
                 <!-- Row 1 -->
                 <Grid Grid.Row="1">
-                    <Button Name="BtnSave" Width="50" Height="25" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Top" Foreground="Black" Background="#EB5E28" BorderThickness="0" FontSize="15" FontFamily="Fira Code">
+                    <Button Name="BtnSave" Width="50" Height="25" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Top" 
+                            Foreground="Black" Background="#EB5E28" BorderThickness="0" FontSize="15" FontFamily="Fira Code" Click ="BtnSave_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="FontFamily" Value="Consolas" />

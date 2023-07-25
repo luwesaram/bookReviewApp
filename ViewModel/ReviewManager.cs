@@ -37,7 +37,7 @@ namespace bookReviewConsoleApplication.ViewModel
                     return reviews;
                 }
 
-                string sql = "SELECT u.username, b.title, r.description, r.rating, r.review_date " +
+                string sql = "SELECT u.username, b.title, r.description, r.rating, r.id, r.review_date " +
                             "FROM review r " +
                             "JOIN user u ON r.user_id = u.id " +
                             "JOIN book b ON r.book_id = b.id " +
@@ -88,5 +88,45 @@ namespace bookReviewConsoleApplication.ViewModel
             return reviews;
         }
 
+        public void AddReview(string description, Book book)
+        {
+            User user = CurrentUserManager.Instance.CurrentUser;
+            MessageBox.Show("Im here", "Nice", MessageBoxButton.OK);
+            try
+            {
+                if(!Conn.OpenConnection())
+                {
+                    MessageBox.Show("Unable to connect to the database.", "Error");
+                    return;
+                }
+
+                string sql = "INSERT INTO review (user_id, book_id, description, review_date, rating) VALUES (@UserId, @BookId, @Description, @CreatedAt, @Rating)";
+                MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@UserId", user.Id);
+                command.Parameters.AddWithValue("@Rating", 5);
+                command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
+                command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Review added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to add review", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch(MySqlException ex)  
+            { 
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Conn.CloseConnection();
+            }
+        }
     }
 }
