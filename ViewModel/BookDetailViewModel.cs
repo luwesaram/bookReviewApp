@@ -24,6 +24,90 @@ namespace bookReviewConsoleApplication.ViewModel
             }
         }
 
+        private int oneStarCount;
+        public int OneStarCount
+        {
+            get { return oneStarCount; }
+            set
+            {
+                if (oneStarCount != value)
+                {
+                    oneStarCount = value;
+                    OnPropertyChanged(nameof(OneStarCount));
+                }
+            }
+        }
+
+        private int twoStarCount;
+        public int TwoStarCount
+        {
+            get { return twoStarCount; }
+            set
+            {
+                if (twoStarCount != value)
+                {
+                    twoStarCount = value;
+                    OnPropertyChanged(nameof(OneStarCount));
+                }
+            }
+        }
+
+        private int threeStarCount;
+        public int ThreeStarCount
+        {
+            get { return threeStarCount; }
+            set
+            {
+                if (threeStarCount != value)
+                {
+                    threeStarCount = value;
+                    OnPropertyChanged(nameof(ThreeStarCount));
+                }
+            }
+        }
+
+        private int fourStarCount;
+        public int FourStarCount
+        {
+            get { return fourStarCount; }
+            set
+            {
+                if (fourStarCount != value)
+                {
+                    fourStarCount = value;
+                    OnPropertyChanged(nameof(FourStarCount));
+                }
+            }
+        }
+
+        private int fiveStarCount;
+        public int FiveStarCount
+        {
+            get { return fiveStarCount; }
+            set
+            {
+                if (fiveStarCount != value)
+                {
+                    fiveStarCount = value;
+                    OnPropertyChanged(nameof(FiveStarCount));
+                }
+            }
+        }
+
+        private int allStarCount;
+        public int AllStarCount
+        {
+            get { return allStarCount; }
+            set
+            {
+                if (allStarCount != value)
+                {
+                    allStarCount = value;
+                    OnPropertyChanged(nameof(AllStarCount));
+                }
+            }
+        }
+
         private ObservableCollection<Review> _reviews;
 
         public ObservableCollection<Review> Reviews
@@ -43,7 +127,13 @@ namespace bookReviewConsoleApplication.ViewModel
             reviewManager = new ReviewManager(connection);
             Reviews = new ObservableCollection<Review>();
             IsAlreadyReviewed = reviewManager.IsReviewed(book);
-
+            OneStarCount = reviewManager.OneStar(book);
+            TwoStarCount = reviewManager.TwoStar(book);
+            ThreeStarCount = reviewManager.ThreeStar(book);
+            FourStarCount = reviewManager.FourStar(book);
+            FiveStarCount = reviewManager.FiveStar(book);
+            AllStarCount = reviewManager.AllStar(book);
+            Console.WriteLine("IsAlreadyReviewed " + IsAlreadyReviewed);
             LoadReviewsAsync();
         }
 
@@ -58,6 +148,15 @@ namespace bookReviewConsoleApplication.ViewModel
                     Reviews.Add(review);
                 }
             }
+        }
+
+        public void ReviewCount(Book book)
+        {
+            OneStarCount = reviewManager.OneStar(book);
+            TwoStarCount = reviewManager.TwoStar(book);
+            ThreeStarCount = reviewManager.ThreeStar(book);
+            FourStarCount = reviewManager.FourStar(book);
+            FiveStarCount = reviewManager.FiveStar(book);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
