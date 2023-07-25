@@ -2,41 +2,51 @@
 using bookReviewConsoleApplication.ViewModel;
 using System.Windows;
 
-
 namespace bookReviewConsoleApplication.View
 {
-    /// <summary>
-    /// Interaction logic for BookDetailPage.xaml
-    /// </summary>
-    public partial class BookDetailPage : Window
+    public partial class AddReviewWindow : Window
     {
         private readonly BookDetailViewModel viewModel;
+        private readonly ReviewManager reviewManager;
+        private readonly Connection Conn;
         private Book currentBook;
 
-        public BookDetailPage(Book book)
+        public AddReviewWindow(Book book)
         {
             InitializeComponent();
-            User currentUser = CurrentUserManager.Instance.CurrentUser;
-            
+  
+            Conn = new Connection();
+            User user = CurrentUserManager.Instance.CurrentUser;
+            reviewManager = new ReviewManager(Conn);
             viewModel = new BookDetailViewModel(book);
             currentBook = book;
-            
             DataContext = viewModel;
-            lblUserName.Content = "Hi " + currentUser.Username;
+            lblUserName.Content = "Hi " + user.Username;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            UserPage userPage = new UserPage();
-            userPage.Show();
+            BookDetailPage bookDetail = new BookDetailPage(currentBook);
+            bookDetail.Show();
             this.Close();
         }
-
-        private void BtnCreate_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            AddReviewWindow addReview = new AddReviewWindow(currentBook);
-            addReview.Show();
-            this.Close();
+            string description = TxtBxReview.Text;
+
+            if(!string.IsNullOrEmpty(description))
+            {
+                reviewManager.AddReview(description, currentBook);
+                BookDetailPage bookDetailPage = new BookDetailPage(currentBook);
+                bookDetailPage.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Fields must not be empty", "Empty Fields", MessageBoxButton.OK);
+            }
+
+
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -53,6 +63,5 @@ namespace bookReviewConsoleApplication.View
                 currentWindow.Close();
             }
         }
-
     }
 }
