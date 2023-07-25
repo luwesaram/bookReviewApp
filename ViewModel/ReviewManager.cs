@@ -80,7 +80,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 }
 
                 string sql = "INSERT INTO review (user_id, book_id, description, review_date, rating) VALUES (@UserId, @BookId, @Description, @CreatedAt, @Rating)";
-                MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
+                MySqlCommand command = new(sql, Conn.GetConnection());
                 command.Parameters.AddWithValue("@UserId", user.Id);
                 command.Parameters.AddWithValue("@Rating", rating);
                 command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
@@ -121,7 +121,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 }
 
                 string sql = "SELECT COUNT(*) FROM review WHERE user_id = @UserId AND book_id = @BookId";
-                MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
+                MySqlCommand command = new(sql, Conn.GetConnection());
                 command.Parameters.AddWithValue("@UserId", user.Id);
                 command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
 
@@ -150,16 +150,14 @@ namespace bookReviewConsoleApplication.ViewModel
                     MessageBox.Show("Unable to connect to the database.", "Error");
                 }
                 string sql = "SELECT COUNT(*) AS count FROM review WHERE rating = @Rating AND book_id = @BookId;";
-                using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection()))
-                {
-                    command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
-                    command.Parameters.AddWithValue("@Rating", star);
-                    object result = command.ExecuteScalar();
+                using MySqlCommand command = new(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
+                command.Parameters.AddWithValue("@Rating", star);
+                object result = command.ExecuteScalar();
 
-                    if (result != null && result != DBNull.Value)
-                    {
-                        return Convert.ToInt32(result);
-                    }
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToInt32(result);
                 }
             }
             catch (MySqlException ex)
@@ -183,15 +181,14 @@ namespace bookReviewConsoleApplication.ViewModel
                     MessageBox.Show("Unable to connect to the database.", "Error");
                 }
                 string sql = "SELECT COUNT(*) AS count FROM review WHERE book_id = @BookId;";
-                using (MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection()))
-                {
-                    command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
-                    object result = command.ExecuteScalar();
+                using MySqlCommand command = new(sql, Conn.GetConnection());
+                
+                command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
+                object result = command.ExecuteScalar();
 
-                    if (result != null && result != DBNull.Value)
-                    {
-                        return Convert.ToInt32(result);
-                    }
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToInt32(result);
                 }
             }
             catch (MySqlException ex)
