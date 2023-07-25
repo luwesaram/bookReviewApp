@@ -37,11 +37,16 @@ namespace bookReviewConsoleApplication.View
             if(!string.IsNullOrEmpty(description))
             {
                 reviewManager.AddReview(description, currentBook);
+                BookDetailPage bookDetailPage = new BookDetailPage(currentBook);
+                bookDetailPage.Show();
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Fields must not be empty", "Empty Fields", MessageBoxButton.OK);
             }
+
+
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)

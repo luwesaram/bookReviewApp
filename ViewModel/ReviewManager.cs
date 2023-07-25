@@ -86,7 +86,6 @@ namespace bookReviewConsoleApplication.ViewModel
         public void AddReview(string description, Book book)
         {
             User user = CurrentUserManager.Instance.CurrentUser;
-
             try
             {
                 if(!Conn.OpenConnection())
