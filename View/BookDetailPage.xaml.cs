@@ -1,7 +1,9 @@
 ﻿using bookReviewConsoleApplication.Model;
 using bookReviewConsoleApplication.ViewModel;
+using System;
+using System.Globalization;
 using System.Windows;
-
+using System.Windows.Data;
 
 namespace bookReviewConsoleApplication.View
 {
@@ -23,6 +25,15 @@ namespace bookReviewConsoleApplication.View
             
             DataContext = viewModel;
             lblUserName.Content = "Hi " + currentUser.Username;
+
+            if (viewModel.IsAlreadyReviewed)
+            {
+                BtnCreate.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BtnCreate.Visibility = Visibility.Visible;
+            }
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

@@ -136,15 +136,14 @@ namespace bookReviewConsoleApplication.ViewModel
                     return false;
                 }
 
-                string sql = "SELECT * FROM review, user, book WHERE user.id = review.user_id AND book.id = review.book_id";
+                string sql = "SELECT COUNT(*) FROM review WHERE user_id = @UserId AND book_id = @BookId";
                 MySqlCommand command = new MySqlCommand(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@UserId", user.Id);
+                command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
 
-                int rowsAffected = command.ExecuteNonQuery();
+                int count = Convert.ToInt32(command.ExecuteScalar());
 
-                if (rowsAffected > 0)
-                {
-                    return true;
-                }
+                return count > 0;
             }
             catch (MySqlException ex)
             {

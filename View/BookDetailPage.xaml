@@ -164,13 +164,6 @@
                                             </Setter.Value>
                                         </Setter>
                                         <Style.Triggers>
-                                            <!-- Use a DataTrigger to set the Visibility based on IsAlreadyReviewed -->
-                                            <DataTrigger Binding="{Binding IsAlreadyReviewed}" Value="True">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsAlreadyReviewed}" Value="False">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter Property="Background" Value="#EB8028"/>
                                                 <Setter Property="Cursor" Value="Hand"/>
