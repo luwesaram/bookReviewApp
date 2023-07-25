@@ -9,7 +9,7 @@ namespace bookReviewConsoleApplication.ViewModel
 {
     public class ReviewManager
     {
-        private Connection Conn;
+        private readonly Connection Conn;
 
         // when BookManager loads, it constructs the connection property in order for the Conn to be globally usable by other 
         // existing methods

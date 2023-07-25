@@ -10,9 +10,7 @@ namespace bookReviewConsoleApplication.View
         private readonly ReviewViewModel viewModel;
         private readonly ReviewManager reviewManager;
         private readonly Connection Conn;
-        private Book currentBook;
-        public List<int> Ratings { get; set; } = new List<int> { 5, 4, 3, 2, 1 };
-        public int SelectedRating { get; set; }
+        private readonly Book currentBook;
 
         public AddReviewWindow(Book book)
         {
@@ -27,12 +25,11 @@ namespace bookReviewConsoleApplication.View
             DataContext = viewModel;
 
             lblUserName.Content = "Hi " + user.Username;
-            SelectedRating = 5;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            BookDetailPage bookDetail = new BookDetailPage(currentBook);
+            BookDetailPage bookDetail = new(currentBook);
             bookDetail.Show();
             this.Close();
         }
@@ -46,7 +43,7 @@ namespace bookReviewConsoleApplication.View
             if (!string.IsNullOrEmpty(description))
             {
                 reviewManager.AddReview(description, rating, currentBook);
-                BookDetailPage bookDetailPage = new BookDetailPage(currentBook);
+                BookDetailPage bookDetailPage = new(currentBook);
                 bookDetailPage.Show();
                 this.Close();
             }
@@ -65,7 +62,7 @@ namespace bookReviewConsoleApplication.View
                 CurrentUserManager.Instance.CurrentUser = null;
                 var currentWindow = Window.GetWindow(this);
 
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new();
                 mainWindow.Show();
                 currentWindow.Close();
             }
