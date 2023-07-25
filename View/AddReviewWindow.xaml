@@ -71,6 +71,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width=".05*"/>
             </Grid.ColumnDefinitions>
+
             <!--Column 1-->
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -78,8 +79,8 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <TextBox Name="txtBxSearch" Height="20" Background="#F8F7F5" FontFamily="Consolas" Margin="5,0,5,0" Padding="5,2,5,2" />
-                    <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,0,10,0"/>
+                    <TextBox Name="txtBxSearch" Height="25" Background="#F8F7F5" FontFamily="Consolas" Margin="5,9,5,1" Padding="5,2,5,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="17" FontWeight="Medium"/>
+                    <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,4,10,-4"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -137,7 +138,8 @@
                 
                 <!-- Row 1 -->
                 <Grid Grid.Row="1">
-                    <Button Name="BtnSave" Width="50" Height="25" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Top" Foreground="Black" Background="#EB5E28" BorderThickness="0" FontSize="15" FontFamily="Fira Code">
+                    <Button Name="BtnSave" Width="50" Height="25" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Top" 
+                            Foreground="Black" Background="#EB5E28" BorderThickness="0" FontSize="15" FontFamily="Fira Code" Click ="BtnSave_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="FontFamily" Value="Consolas" />
