@@ -93,7 +93,7 @@
                                    Margin="20,65,0,0"/>
                         <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" 
                                   FontFamily="Consolas" FontSize="10" Margin="75,65,0,0"/>
-                        <TextBox Name="TxtBxReview" Height="Auto" MinHeight="250" VerticalAlignment="Top" Margin="15,70,15,0" 
+                        <TextBox Name="TxtBxReview" Height="Auto" MinHeight="250" VerticalAlignment="Top" Margin="15,90,15,0" 
                                      FontFamily="Consolas" Background="#EEEEEE" VerticalContentAlignment="Top" TextWrapping="Wrap" AcceptsReturn="True"
                                      FontSize="15"/>
                 </Grid>
