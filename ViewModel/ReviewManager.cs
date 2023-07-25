@@ -50,29 +50,25 @@ namespace bookReviewConsoleApplication.ViewModel
                             "JOIN user u ON r.user_id = u.id " +
                             "WHERE r.book_id = @BookId ";
 
-                using (MySqlCommand command = new(sql, Conn.GetConnection()))
+                using MySqlCommand command = new(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (await reader.ReadAsync())
                 {
-                    command.Parameters.AddWithValue("@BookId", book.ISBNNumber);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    Review review = new Review
                     {
-                        while (await reader.ReadAsync())
+                        Id = reader.GetInt32("id"),
+                        Description = reader.GetString("description"),
+                        Rating = reader.GetInt32("rating"),
+                        ReviewDate = reader.GetDateTime("review_date"),
+                        User = new User
                         {
-                            Review review = new Review
-                            {
-                                Id = reader.GetInt32("id"),
-                                Description = reader.GetString("description"),
-                                Rating = reader.GetInt32("rating"),
-                                ReviewDate = reader.GetDateTime("review_date"),
-                                User = new User
-                                {
-                                    Username = reader.GetString("username")
-                                }
-                            };
-
-                            reviews.Add(review);
+                            Username = reader.GetString("username")
                         }
-                    }
+                    };
+
+                    reviews.Add(review);
                 }
             }
             catch (MySqlException ex)
@@ -90,7 +86,7 @@ namespace bookReviewConsoleApplication.ViewModel
         public void AddReview(string description, Book book)
         {
             User user = CurrentUserManager.Instance.CurrentUser;
-            MessageBox.Show("Im here", "Nice", MessageBoxButton.OK);
+
             try
             {
                 if(!Conn.OpenConnection())

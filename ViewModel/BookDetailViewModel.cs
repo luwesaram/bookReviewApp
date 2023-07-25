@@ -2,6 +2,7 @@
 using bookReviewConsoleApplication.Model;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System;
 
 namespace bookReviewConsoleApplication.ViewModel
 {
@@ -9,7 +10,7 @@ namespace bookReviewConsoleApplication.ViewModel
     {
         private readonly Connection connection;
         private readonly ReviewManager reviewManager;
-        public bool IsAlreadyReviewed;
+        public bool IsAlreadyReviewed { get; set; }
 
         private Book _book;
 
@@ -42,6 +43,7 @@ namespace bookReviewConsoleApplication.ViewModel
             reviewManager = new ReviewManager(connection);
             Reviews = new ObservableCollection<Review>();
             IsAlreadyReviewed = reviewManager.IsReviewed(book);
+            Console.WriteLine("IsAlreadyReviewed " + IsAlreadyReviewed);
             LoadReviewsAsync();
         }
 
