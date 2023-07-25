@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
-        xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls"
+        xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls" xmlns:viewmodel="clr-namespace:bookReviewConsoleApplication.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ReviewDetailViewModel}"
         mc:Ignorable="d"
         Title="AddReviewWindow" Height="600" Width="800"
         MinHeight="800" MinWidth="800"
@@ -94,6 +94,8 @@
                         <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" 
                                   FontFamily="Consolas" FontSize="10" Margin="75,65,0,0"/>
                         <TextBox Name="TxtBxReview" Height="Auto" MinHeight="250" VerticalAlignment="Top" Margin="15,90,15,0" 
+                    <TextBox Name="TxtBxReview" Height="Auto" MinHeight="250" VerticalAlignment="Top" Margin="15,70,15,0" 
+                    <TextBox Name="TxtBxReview" Height="Auto" MinHeight="250" VerticalAlignment="Top" Margin="15,70,15,0" 
                              FontFamily="Consolas" Background="#EEEEEE" VerticalContentAlignment="Top" TextWrapping="Wrap" AcceptsReturn="True"
                              FontSize="15"/>
                 </Grid>

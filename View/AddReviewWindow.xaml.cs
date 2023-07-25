@@ -10,9 +10,7 @@ namespace bookReviewConsoleApplication.View
         private readonly ReviewViewModel viewModel;
         private readonly ReviewManager reviewManager;
         private readonly Connection Conn;
-        private Book currentBook;
-        public List<int> Ratings { get; set; } = new List<int> { 5, 4, 3, 2, 1 };
-        public int SelectedRating { get; set; }
+        private readonly Book currentBook;
 
         public AddReviewWindow(Book book)
         {
@@ -29,7 +27,7 @@ namespace bookReviewConsoleApplication.View
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            BookDetailPage bookDetail = new BookDetailPage(currentBook);
+            BookDetailPage bookDetail = new(currentBook);
             bookDetail.Show();
             this.Close();
         }
@@ -41,13 +39,28 @@ namespace bookReviewConsoleApplication.View
             if (!string.IsNullOrEmpty(description))
             {
                 reviewManager.AddReview(description, rating, currentBook);
-                BookDetailPage bookDetailPage = new BookDetailPage(currentBook);
+                BookDetailPage bookDetailPage = new(currentBook);
                 bookDetailPage.Show();
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Fields must not be empty", "Empty Fields", MessageBoxButton.OK);
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to logout?", "Logout Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                CurrentUserManager.Instance.CurrentUser = null;
+                var currentWindow = Window.GetWindow(this);
+
+                MainWindow mainWindow = new();
+                mainWindow.Show();
+                currentWindow.Close();
             }
         }
     }
