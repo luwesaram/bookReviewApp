@@ -43,7 +43,7 @@ namespace bookReviewConsoleApplication.UserControls
             Connection Conn = new();
             UserManager userManager = new();
 
-            lblUserName.Content = "Hello " + currentUser.Username;
+            lblUserName.Content = "Hello, " + currentUser.Username + "!";
             Upload = userManager.IsAuthor() ? "Hello Author" : "Hello User";
         }
 

@@ -43,12 +43,16 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <TextBox Name="txtBxSearch" Height="25" Background="#F8F7F5" FontFamily="Consolas" Margin="5,9,5,1" Padding="5,2,5,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="17" FontWeight="Medium"/>
+                    <TextBox Name="txtBxSearch" Height="25" Background="#F8F7F5" FontFamily="Consolas" Margin="5,9,5,1" Padding="5,2,5,2" VerticalContentAlignment="Center"   HorizontalContentAlignment="Left" FontSize="17" FontWeight="Medium"/>
                     <Image Source="/assets/searchIcon.png" HorizontalAlignment="Right" Width="15" Margin="0,4,10,-4"/>
                 </Grid>
             </Grid>
             <!-- Column 2 -->
             <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="236*"/>
+                    <ColumnDefinition Width="855*"/>
+                </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Featured Books" Margin="9,0,0,0" FontSize="18" FontWeight="Bold" FontFamily="Consolas" Width="141"/>
                 <Border Width="137" Margin="9,0,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left" BorderBrush="#EB5E28" BorderThickness="2"/>
             </Grid>
@@ -74,7 +78,7 @@
                             <!-- Define how each individual item would be presented -->
                             <Border Width="Auto" Height="Auto" MaxHeight="300" MaxWidth="200" Margin="10">
                                 <Image Source="{Binding CoverImage}" Stretch="UniformToFill" HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}" />
+                                       VerticalAlignment="Center" MouseLeftButtonDown="ImgMouseLeftButtonDown" Tag="{Binding}" Cursor="Hand"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
