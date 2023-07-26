@@ -40,7 +40,7 @@ namespace bookReviewConsoleApplication.ViewModel
                              "JOIN author a ON b.author_id = a.id " +
                              "JOIN genre g ON g.id = b.genre_id " +
                              "JOIN user u ON u.id = a.user_id " +
-                             "ORDER BY b.publication_date DESC";
+                             "ORDER BY STR_TO_DATE(b.publication_date, '%m/%d/%Y') DESC";
 
                 using (MySqlCommand command = new(sql, Conn.GetConnection()))
                 {
@@ -87,7 +87,7 @@ namespace bookReviewConsoleApplication.ViewModel
                                 ISBNNumber = reader.GetString("id"),
                                 Title = reader.GetString("title"),
                                 Description = reader.GetString("description"),
-                                PublicationDate = reader.GetDateTime("publication_date"),
+                                PublicationDate = reader.GetString("publication_date"),
                                 PageCount = reader.GetInt32("page_count"),
                                 Author = author,
                                 Genre = genre
