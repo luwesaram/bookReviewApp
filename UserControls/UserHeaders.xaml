@@ -13,8 +13,7 @@
             <ColumnDefinition Width="0.05*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.ColumnSpan="3" Fill="#FF252422"/>
-        <Label Name="lblHeader" Grid.Column="1" FontFamily="Consolas" Content="NovelNotes" FontSize="30" FontWeight="Bold" 
-                   Foreground="#EB5E28" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Name="lblHeader" Grid.Column="1" FontFamily="Consolas" Content="NovelNotes" FontSize="30" FontWeight="Bold" Foreground="#EB5E28" HorizontalAlignment="Left" VerticalAlignment="Center" Cursor="Hand"/>
 
         <!-- Middle Column -->
         <Grid Grid.Column="1" MinWidth="725">
