@@ -5,6 +5,6 @@
              xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <userControl:UserHeaders x:Key="UserHeadersInstance"/>         
+        
     </Application.Resources>
 </Application>

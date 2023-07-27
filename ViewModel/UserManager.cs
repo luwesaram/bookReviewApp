@@ -50,7 +50,6 @@ namespace bookReviewConsoleApplication.ViewModel
                 Conn.CloseConnection();
             }
 
-            MessageBox.Show(" " + user.Id + " " + count, "Status", MessageBoxButton.OK);
             return count > 0;
         }
         // Register Methods
