@@ -6,8 +6,8 @@
         xmlns:userControl="clr-namespace:bookReviewConsoleApplication.UserControls"
         xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
         mc:Ignorable="d"
-        Title="BookDetailPage" Height="800" Width="800"
-        MinHeight="800" MinWidth="800"
+        Title="BookDetailPage" Height="800" Width="1200"
+        MinHeight="800" MinWidth="1000"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Grid.Column="0" Content="{Binding Book.Title}" FontSize="30" FontWeight="Bold" Margin="10" />
@@ -103,8 +103,8 @@
 
 
                         <!--Button-->
-                        <Grid Grid.Row="2" Height="129" VerticalAlignment="Center">
-                            <Button Name="BtnCreate" Click="BtnCreate_Click" Margin="1,9,1,81" BorderThickness="0" OverridesDefaultStyle="True">
+                        <Grid Grid.Row="2" Height="129" Width="250" VerticalAlignment="Center">
+                            <Button Name="BtnCreate" Click="BtnCreate_Click" Margin="1,9,1,81"  BorderThickness="0" OverridesDefaultStyle="True">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="FontFamily" Value="Consolas" />
