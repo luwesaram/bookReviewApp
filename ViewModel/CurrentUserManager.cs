@@ -7,6 +7,11 @@ namespace bookReviewConsoleApplication.ViewModel
     {
         private static CurrentUserManager instance;
         private User _currentUser;
+        public User CurrentUser
+        {
+            get { return _currentUser; }
+            set { _currentUser = value; }
+        }
 
         private Author? _author;
         public Author? Author
@@ -14,23 +19,15 @@ namespace bookReviewConsoleApplication.ViewModel
             get { return _author; }
             set { _author = value; }
         }
-        
 
-        public bool IsAuthor() => GetAuthor() != null;
-        private Author? GetAuthor()
+        public void Initialize(User currentUser)
         {
+            _currentUser = currentUser;
             UserManager userManager = new();
-            if(userManager.IsAuthor()) {
+            if (userManager.IsAuthor())
+            {
                 Author = userManager.GetAuthor();
             }
-
-            return Author;
-        }
-
-        public User CurrentUser
-        {
-            get { return _currentUser; }
-            set { _currentUser = value; }
         }
 
         public static CurrentUserManager Instance

@@ -88,7 +88,7 @@ namespace bookReviewConsoleApplication.ViewModel
                                 ISBNNumber = reader.GetString("id"),
                                 Title = reader.GetString("title"),
                                 Description = reader.GetString("description"),
-                                PublicationDate = reader.GetString("publication_date"),
+                                PublicationDate = DateTime.ParseExact(reader.GetString("publication_date"), "MMMM d, yyyy", CultureInfo.InvariantCulture),
                                 PageCount = reader.GetInt32("page_count"),
                                 Author = author,
                                 Genre = genre
@@ -119,7 +119,7 @@ namespace bookReviewConsoleApplication.ViewModel
         }
 
         public void CreateBook(string ISBNNumber, string title, string description, Genre genre, DateTime publicationDate, int pageCount, string coverImagePath) {
-            string format = "MM/dd/yyyy";
+            Author author = CurrentUserManager.Instance.Author;
 
             try 
             {
@@ -133,15 +133,29 @@ namespace bookReviewConsoleApplication.ViewModel
                     Title = title,
                     Description = description,
                     Genre = genre,
-                    PublicationDate = publicationDate.ToString("MM-dd-yyyy"),
+                    Author = author,
+                    PublicationDate = publicationDate,
                     PageCount = pageCount,
                 };
 
                 ImageSource imageSource = new ImageSourceConverter().ConvertFromString(coverImagePath) as ImageSource; 
                 newBook.CoverImage = imageSource;
 
-                string sql = "";
+                string sql = "INSERT INTO book (id, title, description, genre_id, author_id, publication_date, page_count, cover_image) " +
+                     "VALUES (@ISBNNumber, @Title, @Description, @GenreId, @AuthorId, @PublicationDate, @PageCount, @CoverImage)";
+
                 using MySqlCommand command = new(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@ISBNNumber", newBook.ISBNNumber);
+                command.Parameters.AddWithValue("@Title", newBook.Title);
+                command.Parameters.AddWithValue("@Description", newBook.Description);
+                command.Parameters.AddWithValue("@GenreId", newBook.Genre.Id);
+                command.Parameters.AddWithValue("@AuthorId", newBook.Author.Id);
+                command.Parameters.AddWithValue("@PublicationDate", newBook.PublicationDate);
+                command.Parameters.AddWithValue("@PageCount", newBook.PageCount);
+                command.Parameters.AddWithValue("@CoverImage", ConvertImageToBytes(newBook.CoverImage)); // Convert the image to a byte array
+                command.ExecuteNonQuery();
+
+                MessageBox.Show("Success", "Status", MessageBoxButton.OK);
 
             }
             catch (MySqlException ex)
@@ -151,6 +165,19 @@ namespace bookReviewConsoleApplication.ViewModel
             finally
             {
                 Conn.CloseConnection();
+            }
+        }
+        private byte[] ConvertImageToBytes(ImageSource imageSource)
+        {
+            if (imageSource == null)
+                return null;
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                var encoder = new JpegBitmapEncoder(); // Use JpegBitmapEncoder for JPEG images, or other encoders based on your image format
+                encoder.Frames.Add(BitmapFrame.Create(imageSource as BitmapSource));
+                encoder.Save(stream);
+                return stream.ToArray();
             }
         }
 

@@ -107,12 +107,27 @@ namespace bookReviewConsoleApplication.ViewModel
         public Author? GetAuthor() 
         {
             Author author = null;
-            
+            User user = CurrentUserManager.Instance.CurrentUser;
+
             try
             {
                 if(!Conn.OpenConnection())
                 {
                     return author;
+                }
+
+                string sql = "SELECT * FROM author WHERE author.user_id = @UserId";
+                using MySqlCommand command = new(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@UserId", user.Id);
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    author = new Author(user.Username)
+                    {
+                        Id = reader.GetInt32("id"),
+                        PenName = reader.GetString("pen_name")
+                    };
                 }
             }
             catch(MySqlException ex)
@@ -220,6 +235,7 @@ namespace bookReviewConsoleApplication.ViewModel
                 if (user != null)
                 {
                     CurrentUserManager.Instance.CurrentUser = user;
+                    CurrentUserManager.Instance.Initialize(user);
                     UserPage userPage = new UserPage();
                     userPage.Show();
                     currentWindow.Close();

@@ -43,7 +43,6 @@ namespace bookReviewConsoleApplication.View
             Genre selectedGenre = ((AddBookViewModel)DataContext).SelectedGenre; // Use the selected genre
             DateTime publicationDate = dpPublicationDate.SelectedDate ?? DateTime.Now; // Use the selected date or default to current date
 
-
             BookManager bookManager = new(Conn);
             bookManager.CreateBook(isbnNumber,title,description, selectedGenre, publicationDate, pageCount, imagePath);
         }
