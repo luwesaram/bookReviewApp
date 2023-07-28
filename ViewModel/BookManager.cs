@@ -117,6 +117,40 @@ namespace bookReviewConsoleApplication.ViewModel
             return books;
         }
 
+        public void CreateBook(string ISBNNumber, string title, string description, Genre genre, DateTime publicationDate, int pageCount, string coverImagePath) {
+            try 
+            {
+                if(!Conn.OpenConnection()) {
+                    return;
+                } 
+
+                Book newBook = new()
+                {   
+                    ISBNNumber = ISBNNumber,
+                    Title = title,
+                    Description = description,
+                    Genre = genre,
+                    PublicationDate = publicationDate,
+                    PageCount = pageCount,                    
+                }
+
+                ImageSource imageSource = new ImageSourceConverter().ConvertFromString(coverImagePath) as ImageSource; 
+                newBook.CoverImage = imageSource;
+
+                string sql = "";
+                using MySqlCommand command = new(sql, Conn.GetConnection());
+
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Conn.CloseConnection();
+            }
+        }
+
         private ImageSource GetImageFromBytes(byte[] imageData)
         {
             if (imageData == null || imageData.Length == 0)
