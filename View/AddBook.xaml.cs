@@ -2,18 +2,7 @@
 using bookReviewConsoleApplication.ViewModel;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace bookReviewConsoleApplication.View
 {
@@ -22,10 +11,11 @@ namespace bookReviewConsoleApplication.View
     /// </summary>
     public partial class AddBook : Window
     {
+        private readonly Connection Conn;
         public AddBook()
         {
             InitializeComponent();
-            Connection Conn = new();
+            Conn = new();
 
             DataContext = new AddBookViewModel(Conn);
         }
@@ -50,7 +40,12 @@ namespace bookReviewConsoleApplication.View
             string description = txtDescription.Text;
             string imagePath = txtImagePath.Text; // Use this path to load the image
             int pageCount = int.Parse(txtPageCount.Text);
-            string selectedGenre = cmbGenre.SelectedItem?.ToString(); // Use the selected genre
+            Genre selectedGenre = ((AddBookViewModel)DataContext).SelectedGenre; // Use the selected genre
+            DateTime publicationDate = dpPublicationDate.SelectedDate ?? DateTime.Now; // Use the selected date or default to current date
+
+
+            BookManager bookManager = new(Conn);
+            bookManager.CreateBook(isbnNumber,title,description, selectedGenre, publicationDate, pageCount, imagePath);
         }
     }
 }

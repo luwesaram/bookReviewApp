@@ -3,10 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace bookReviewConsoleApplication.ViewModel
@@ -17,6 +14,17 @@ namespace bookReviewConsoleApplication.ViewModel
 
         private List<Genre> _genres;
 
+        private DateTime _selectedDate;
+
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set { 
+                _selectedDate = value; 
+                OnPropertyChanged(nameof(SelectedDate));
+            }
+        }
+
         public List<Genre> Genres
         {
             get { return _genres; }
@@ -25,6 +33,18 @@ namespace bookReviewConsoleApplication.ViewModel
                 OnPropertyChanged(nameof(Genres));
             }
         }
+
+        private Genre _selectedGenre;
+
+        public Genre SelectedGenre
+        {
+            get { return _selectedGenre; }
+            set { 
+                _selectedGenre = value; 
+                OnPropertyChanged(nameof(SelectedGenre));
+            }
+        }
+
 
         public AddBookViewModel(Connection conn)
         {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
         xmlns:UserControl="clr-namespace:bookReviewConsoleApplication.UserControls"
         mc:Ignorable="d"
-        Title="AddBook" Height="450" Width="800">
+        Title="AddBook" Height="600" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".15*"/>
@@ -45,11 +45,11 @@
                     <TextBox x:Name="txtPageCount" Margin="0,0,0,10"/>
 
                     <TextBlock Text="Publication Date:" FontWeight="Bold" Margin="0,10,0,0"/>
-                    <DatePicker x:Name="dpPublicationDate" Margin="0,5" />
+                    <DatePicker x:Name="dpPublicationDate" Margin="0,5" SelectedDate="{Binding SelectedDate}"/>
 
                     <!-- Genre ComboBox -->
                     <TextBlock Text ="Genre"/>
-                    <ComboBox x:Name="cmbGenre" Margin="0,0,0,10" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Genres}" />
+                    <ComboBox x:Name="cmbGenre" Margin="0,0,0,10" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}" />
 
 
                     <!-- Create Book Button -->
