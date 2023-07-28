@@ -2,6 +2,7 @@ using bookReviewConsoleApplication.Model;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -118,21 +119,23 @@ namespace bookReviewConsoleApplication.ViewModel
         }
 
         public void CreateBook(string ISBNNumber, string title, string description, Genre genre, DateTime publicationDate, int pageCount, string coverImagePath) {
+            string format = "MM/dd/yyyy";
+
             try 
             {
                 if(!Conn.OpenConnection()) {
                     return;
-                } 
+                }
 
                 Book newBook = new()
-                {   
+                {
                     ISBNNumber = ISBNNumber,
                     Title = title,
                     Description = description,
                     Genre = genre,
-                    PublicationDate = publicationDate,
-                    PageCount = pageCount,                    
-                }
+                    PublicationDate = publicationDate.ToString("MM-dd-yyyy"),
+                    PageCount = pageCount,
+                };
 
                 ImageSource imageSource = new ImageSourceConverter().ConvertFromString(coverImagePath) as ImageSource; 
                 newBook.CoverImage = imageSource;
