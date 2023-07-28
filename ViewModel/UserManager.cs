@@ -104,6 +104,28 @@ namespace bookReviewConsoleApplication.ViewModel
             }
         }
 
+        public Author? GetAuthor() 
+        {
+            Author author = null;
+            
+            try
+            {
+                if(!Conn.OpenConnection())
+                {
+                    return
+                }
+            }
+            catch(MySqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Conn.CloseConnection();
+            }
+
+            return author;
+        }
         //check if username/email already exists when an account is registered
         public bool UserExists(string username, string email)
         {
