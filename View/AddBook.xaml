@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
         xmlns:UserControl="clr-namespace:bookReviewConsoleApplication.UserControls"
         mc:Ignorable="d"
-        Title="AddBook" Height="600" Width="1200">
+        Title="AddBook" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".15*"/>
@@ -18,44 +19,104 @@
             <UserControl:UserHeaders />
         </Grid>
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".25*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width=".25*"/>
+            </Grid.ColumnDefinitions>
             <!-- Add the content for the "Create Book" page here -->
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel Margin="20">
-                    <!-- ISBN Number -->
-                    <TextBlock Text ="ISBN Number"/>
-                    <TextBox x:Name="txtISBNNumber" Margin="0,0,0,10"/>
+            <Grid Grid.Column="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="20">
+                        <!-- ISBN Number -->
+                        <TextBlock Text ="ISBN Number" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                        <TextBox x:Name="txtISBNNumber" Margin="0,0,0,10" Width="180" HorizontalAlignment="Left"/>
 
-                    <!-- Title -->
-                    <TextBlock Text ="Title"/>
-                    <TextBox x:Name="txtTitle" Margin="0,0,0,10"/>
+                        <!-- Title -->
+                        <TextBlock Text ="Title" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                        <TextBox x:Name="txtTitle" Margin="0,0,0,10" Width="600" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="12" />
 
-                    <!-- Description -->
-                    <TextBlock Text ="Description"/>
-                    <TextBox x:Name="txtDescription" Margin="0,0,0,10" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="100"/>
+                        <!-- Description -->
+                        <TextBlock Text ="Description" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                        <TextBox x:Name="txtDescription" Margin="0,0,0,10" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" 
+                               Height="100" Width="600" HorizontalAlignment="Left" FontFamily="Consolas" FontSize="12"/>
 
-                    <!-- Upload Image -->
-                    <TextBlock Text ="Upload Cover Image"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <TextBox x:Name="txtImagePath" IsReadOnly="True" Width="200" Margin="0,0,10,0"/>
-                        <Button Content="Browse" Click="BtnBrowse_Click"/>
+                        <!-- Upload Image -->
+                        <TextBlock Text ="Upload Cover Image" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBox x:Name="txtImagePath" IsReadOnly="True" Width="530" Margin="0,0,10,0" FontFamily="Consolas" FontSize="12"/>
+                            <Button Content="Browse" Click="BtnBrowse_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="FontFamily" Value="Consolas" />
+                                        <Setter Property="FontSize" Value="12" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="Background" Value="#EB5E28" />
+                                        <Setter Property="Width" Value="60" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#EB8028"/>
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+
+                        <!-- Page Count -->
+                        <TextBlock Text ="Page Count" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                        <TextBox x:Name="txtPageCount" Margin="0,0,0,3" FontFamily="Consolas" FontSize="12" Width="180" HorizontalAlignment="Left"/>
+
+                        <TextBlock Text="Publication Date:" FontWeight="Bold" Margin="0,10,0,0"/>
+                        <DatePicker x:Name="dpPublicationDate" Margin="0,2,0,5" SelectedDate="{Binding SelectedDate}" FontFamily="Consolas" 
+                                FontSize="12" Width="180" HorizontalAlignment="Left"/>
+
+                        <!-- Genre ComboBox -->
+                        <TextBlock Text ="Genre" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbGenre" Margin="0,0,0,10" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Genres}" 
+                              SelectedItem="{Binding SelectedGenre}" FontFamily="Consolas" FontSize="12" Width="180" HorizontalAlignment="Left"/>
+
+                        <!-- Create Book Button -->
+                        <Button Content="Create Book" Click="BtnCreateBook_Click" HorizontalAlignment="Center" Width="120">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="FontFamily" Value="Consolas" />
+                                    <Setter Property="FontSize" Value="12" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="#EB5E28" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#EB8028"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
-
-                    <!-- Page Count -->
-                    <TextBlock Text ="Page Count"/>
-                    <TextBox x:Name="txtPageCount" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Publication Date:" FontWeight="Bold" Margin="0,10,0,0"/>
-                    <DatePicker x:Name="dpPublicationDate" Margin="0,5" SelectedDate="{Binding SelectedDate}"/>
-
-                    <!-- Genre ComboBox -->
-                    <TextBlock Text ="Genre"/>
-                    <ComboBox x:Name="cmbGenre" Margin="0,0,0,10" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}" />
-
-
-                    <!-- Create Book Button -->
-                    <Button Content="Create Book" Click="BtnCreateBook_Click" HorizontalAlignment="Center" Width="120"/>
-                </StackPanel>
-            </ScrollViewer>
+                </ScrollViewer>
+            </Grid>
         </Grid>
         <Grid Grid.Row="2">
             <!-- Add the loginFooters control for the footer -->
