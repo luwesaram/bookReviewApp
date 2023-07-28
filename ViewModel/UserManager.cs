@@ -215,6 +215,44 @@ namespace bookReviewConsoleApplication.ViewModel
             return user;
         }
 
+        public void CreateAuthor(string PenName)
+        {
+            User user = CurrentUserManager.Instance.CurrentUser;
+
+            try
+            {
+                if(!Conn.OpenConnection())
+                {
+                    return;
+                }
+
+                string sql = "INSERT INTO author (pen_name, user_id) VALUES (@PenName, @UserId)";
+                using MySqlCommand command = new(sql, Conn.GetConnection());
+                command.Parameters.AddWithValue("@PenName", PenName);
+                command.Parameters.AddWithValue("@UserId", user.Id);
+
+                int affected = command.ExecuteNonQuery();
+
+                if(affected > 0)
+                {
+                    MessageBox.Show("Success. Please Relogin. (Obviously not because im tired to do this right)", "Status", MessageBoxButton.OK);
+                } 
+                else
+                {
+                    MessageBox.Show("Error", "Status", MessageBoxButton.OK);
+                }
+
+            }
+            catch (MySqlException Error)
+            { 
+                MessageBox.Show("Error: " + Error, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Conn.CloseConnection();
+            }
+        }
+
         private void LoginUser(string username, string password, Window currentWindow)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))

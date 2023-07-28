@@ -1,0 +1,23 @@
+﻿<Window x:Class="bookReviewConsoleApplication.UserControls.PenNameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bookReviewConsoleApplication.UserControls"
+        mc:Ignorable="d"
+        Title="PenNameWindow" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Center" Grid.Column="1" Margin="40,10">
+            <TextBlock Text="Enter your Pen Name:"/>
+            <TextBox x:Name="txtPenName" Margin="0,10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+                <Button x:Name="btnOK" Content="OK" Width="80" Margin="0,0,10,0" Click="btnOK_Click"/>
+                <Button x:Name="btnCancel" Content="Cancel" Width="80" Click="btnCancel_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

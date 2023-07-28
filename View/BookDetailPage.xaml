@@ -95,7 +95,7 @@
 
                             <Grid Grid.Column="1">
                                 <Label Content="{Binding Book.Genre.Name}"  HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="12" FontWeight="Light" Margin="-17,5,0,0"/>
-                                <Label Content="{Binding Book.PublicationDate}" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="12" FontWeight="Light" Margin="-16,30,0,0"/>
+                                <Label Content="{Binding Book.PublicationDate, StringFormat='{}{0:MMMM d, yyyy}'}" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="12" FontWeight="Light" Margin="-16,30,0,0"/>
                                 <Label Content="{Binding Book.PageCount}"  HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="12" FontWeight="Light" Margin="-17,55,0,0"/>
                                 <Label Content="{Binding Book.ISBNNumber}" HorizontalAlignment="Left" FontFamily="Fira Code" FontSize="12" FontWeight="Light" Margin="-17,80,0,0"/>
                             </Grid>

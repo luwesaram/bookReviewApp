@@ -2,21 +2,11 @@
 using bookReviewConsoleApplication.View;
 using bookReviewConsoleApplication.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Printing;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace bookReviewConsoleApplication.UserControls
 {
@@ -61,7 +51,25 @@ namespace bookReviewConsoleApplication.UserControls
             }
             else
             {
-                MessageBox.Show("Button Clicked!", "Status", MessageBoxButton.OK);
+               PenNameWindow penNameWindow = new();
+
+                if(penNameWindow.ShowDialog() == true )
+                {
+                    string PenName = penNameWindow.PenName;
+                    Author author = new(CurrentUserManager.Instance.CurrentUser.Username)
+                    {
+                        PenName = PenName,
+                    };
+
+                    UserManager userManager = new();
+                    userManager.CreateAuthor(PenName);
+                    CurrentUserManager.Instance.Initialize(CurrentUserManager.Instance.CurrentUser);
+
+                    var currentWindow = Window.GetWindow(this);
+                    MainWindow window = new();
+                    window.Show();
+                    currentWindow.Close();
+                }
             }
         }
 

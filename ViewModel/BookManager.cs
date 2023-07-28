@@ -88,11 +88,22 @@ namespace bookReviewConsoleApplication.ViewModel
                                 ISBNNumber = reader.GetString("id"),
                                 Title = reader.GetString("title"),
                                 Description = reader.GetString("description"),
-                                PublicationDate = DateTime.ParseExact(reader.GetString("publication_date"), "MMMM d, yyyy", CultureInfo.InvariantCulture),
                                 PageCount = reader.GetInt32("page_count"),
                                 Author = author,
                                 Genre = genre
                             };
+
+                            string publicationDateString = reader.GetString("publication_date");
+                            if (DateTime.TryParseExact(publicationDateString, "MMMM d, yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime publicationDate))
+                            {
+                                book.PublicationDate = publicationDate;
+                            }
+                            else
+                            {
+                                // Handle parsing error, show a default date, or set it to DateTime.MinValue, depending on your requirements.
+                                // For example:
+                                book.PublicationDate = DateTime.MinValue;
+                            }
 
                             object CoverImageObj = reader["cover_image"];
                             if (CoverImageObj != null && CoverImageObj != DBNull.Value)
