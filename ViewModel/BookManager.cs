@@ -129,13 +129,14 @@ namespace bookReviewConsoleApplication.ViewModel
             return books;
         }
 
-        public void CreateBook(string ISBNNumber, string title, string description, Genre genre, DateTime publicationDate, int pageCount, string coverImagePath) {
+        public bool CreateBook(string ISBNNumber, string title, string description, Genre genre, DateTime publicationDate, int pageCount, string coverImagePath) {
             Author author = CurrentUserManager.Instance.Author;
+            int affected = 0;
 
             try 
             {
                 if(!Conn.OpenConnection()) {
-                    return;
+                    return false;
                 }
 
                 Book newBook = new()
@@ -164,10 +165,9 @@ namespace bookReviewConsoleApplication.ViewModel
                 command.Parameters.AddWithValue("@PublicationDate", newBook.PublicationDate);
                 command.Parameters.AddWithValue("@PageCount", newBook.PageCount);
                 command.Parameters.AddWithValue("@CoverImage", ConvertImageToBytes(newBook.CoverImage)); // Convert the image to a byte array
-                command.ExecuteNonQuery();
+                affected = command.ExecuteNonQuery();
 
                 MessageBox.Show("Success", "Status", MessageBoxButton.OK);
-
             }
             catch (MySqlException ex)
             {
@@ -177,6 +177,8 @@ namespace bookReviewConsoleApplication.ViewModel
             {
                 Conn.CloseConnection();
             }
+
+            return affected > 0;
         }
         private byte[] ConvertImageToBytes(ImageSource imageSource)
         {

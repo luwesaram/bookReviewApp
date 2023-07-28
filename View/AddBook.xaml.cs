@@ -44,7 +44,13 @@ namespace bookReviewConsoleApplication.View
             DateTime publicationDate = dpPublicationDate.SelectedDate ?? DateTime.Now; // Use the selected date or default to current date
 
             BookManager bookManager = new(Conn);
-            bookManager.CreateBook(isbnNumber,title,description, selectedGenre, publicationDate, pageCount, imagePath);
+            if (bookManager.CreateBook(isbnNumber, title, description, selectedGenre, publicationDate, pageCount, imagePath)) {
+                UserPage userPage = new();
+                var window = Window.GetWindow(this);
+
+                userPage.Show();
+                window.Close();
+            } 
         }
     }
 }
