@@ -112,7 +112,7 @@ namespace bookReviewConsoleApplication.ViewModel
             {
                 if(!Conn.OpenConnection())
                 {
-                    return
+                    return author;
                 }
             }
             catch(MySqlException ex)

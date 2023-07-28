@@ -1,0 +1,65 @@
+﻿<Window x:Class="bookReviewConsoleApplication.View.AddBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bookReviewConsoleApplication.View"
+        xmlns:UserControl="clr-namespace:bookReviewConsoleApplication.UserControls"
+        mc:Ignorable="d"
+        Title="AddBook" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".15*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height=".05*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <!-- Add the UserHeaders control for the header -->
+            <UserControl:UserHeaders />
+        </Grid>
+        <Grid Grid.Row="1">
+            <!-- Add the content for the "Create Book" page here -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20">
+                    <!-- ISBN Number -->
+                    <TextBlock Text ="ISBN Number"/>
+                    <TextBox x:Name="txtISBNNumber" Margin="0,0,0,10"/>
+
+                    <!-- Title -->
+                    <TextBlock Text ="Title"/>
+                    <TextBox x:Name="txtTitle" Margin="0,0,0,10"/>
+
+                    <!-- Description -->
+                    <TextBlock Text ="Description"/>
+                    <TextBox x:Name="txtDescription" Margin="0,0,0,10" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="100"/>
+
+                    <!-- Upload Image -->
+                    <TextBlock Text ="Upload Cover Image"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox x:Name="txtImagePath" IsReadOnly="True" Width="200" Margin="0,0,10,0"/>
+                        <Button Content="Browse" Click="BtnBrowse_Click"/>
+                    </StackPanel>
+
+                    <!-- Page Count -->
+                    <TextBlock Text ="Page Count"/>
+                    <TextBox x:Name="txtPageCount" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Publication Date:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <DatePicker x:Name="dpPublicationDate" Margin="0,5" />
+
+                    <!-- Genre ComboBox -->
+                    <TextBlock Text ="Genre"/>
+                    <ComboBox x:Name="cmbGenre" Margin="0,0,0,10" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Genres}" />
+
+
+                    <!-- Create Book Button -->
+                    <Button Content="Create Book" Click="BtnCreateBook_Click" HorizontalAlignment="Center" Width="120"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="2">
+            <!-- Add the loginFooters control for the footer -->
+            <UserControl:loginFooters/>
+        </Grid>
+    </Grid>
+</Window>

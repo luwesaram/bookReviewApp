@@ -32,7 +32,7 @@
             <!-- Settings -->
             <Grid Grid.Column="2">
                 <Button x:Name="btnUpload" Content="{Binding Upload}" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="17" 
-                        Margin="56,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" Click="btnUpload_Click" Cursor="Hand">
+                    Margin="56,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" Click="btnUpload_Click" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
@@ -46,7 +46,8 @@
             <!-- Logout -->
             <Grid Grid.Column="3">
                 <Image Source="/assets/logOutIcon.png" Width="20" HorizontalAlignment="Left" Margin="31,0,0,0"/>
-                <Button x:Name="btnLogout" Content="Logout" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="17" Margin="56,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" Click="btnLogout_Click" Cursor="Hand">
+                <Button x:Name="btnLogout" Content="Logout" VerticalAlignment="Center" Foreground="White" FontFamily="Consolas" FontSize="17" 
+                        Margin="56,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" Click="btnLogout_Click" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">

@@ -1,4 +1,5 @@
 ﻿using bookReviewConsoleApplication.Model;
+using bookReviewConsoleApplication.View;
 using bookReviewConsoleApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,18 @@ namespace bookReviewConsoleApplication.UserControls
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
+            if(Upload == "Upload A Book")
+            {
+                var currentWindow = Window.GetWindow(this);
 
+                AddBook window = new();
+                window.Show();
+                currentWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Button Clicked!", "Status", MessageBoxButton.OK);
+            }
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
